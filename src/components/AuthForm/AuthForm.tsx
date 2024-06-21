@@ -3,16 +3,24 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
+
+import {
+  useAuthStore,
+  selectLoading,
+  selectError,
+} from "@/stores/authStore.store";
 
 interface IAuthFormProps {
   type: "SignIn" | "SignUp";
   onSubmit: ({ email, password }: { email: string; password: string }) => void;
-  error: string;
 }
 
-const AuthForm = ({ type, onSubmit, error }: IAuthFormProps) => {
+const AuthForm = ({ type, onSubmit }: IAuthFormProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const loading = useAuthStore(selectLoading);
+  const error = useAuthStore(selectError);
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
@@ -75,7 +83,8 @@ const AuthForm = ({ type, onSubmit, error }: IAuthFormProps) => {
             </div>
           </div>
           <Button className="w-full">
-            {type === "SignIn" ? "Sign in" : "Sign up for a new account"}
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {type === "SignIn" ? "Sign in" : "Sign up"}
           </Button>
           <p className={cn("text-red-500", error ? "" : "hidden")}>{error}</p>
         </form>

@@ -3,11 +3,17 @@ import MainLayout from "../layouts/MainLayout/MainLayout";
 import SignIn from "../pages/Auth/SignIn/SignIn";
 import SignUp from "../pages/Auth/SignUp/SignUp";
 import Home from "../pages/Home/Home";
+import RequireAuth from "@/helpers/RequireAuth";
+import IsAuthUser from "@/helpers/IsAuthUser";
 
 const routes = [
   {
     path: "/",
-    element: <MainLayout></MainLayout>,
+    element: (
+      <RequireAuth>
+        <MainLayout />
+      </RequireAuth>
+    ),
     children: [
       {
         path: "/",
@@ -17,7 +23,11 @@ const routes = [
   },
   {
     path: "/auth",
-    element: <AuthLayout></AuthLayout>,
+    element: (
+      <IsAuthUser>
+        <AuthLayout />
+      </IsAuthUser>
+    ),
     children: [
       {
         path: "/auth/sign-in",
