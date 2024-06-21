@@ -1,23 +1,24 @@
-import { Identity } from "./identity.interface"
+import { IIdentity } from "./identity.interface"
 
-export interface AppMetadata {
+export interface IAppMetadata {
   provider: string
   providers: string[]
 }
 
-export interface UserMetadata {}
+export interface IUserMetadata {}
 
-export interface User {
+export interface IUser {
   id: string
   aud: string
   role: string
+  username: string
   email: string
   email_confirmed_at: string
   phone: string
   last_sign_in_at: string
-  app_metadata: AppMetadata
-  user_metadata: UserMetadata
-  identities: Identity[]
+  app_metadata: IAppMetadata
+  user_metadata: IUserMetadata
+  identities: IIdentity[]
   created_at: string
   updated_at: string
 }

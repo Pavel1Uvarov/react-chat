@@ -1,4 +1,4 @@
-import { selectToken, useAuthStore } from "@/stores/authStore.store";
+import { selectToken, useAuthStore } from "@/stores/auth.store";
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 

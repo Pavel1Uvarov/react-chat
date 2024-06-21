@@ -1,4 +1,4 @@
-import { selectSignIn, useAuthStore } from "@/stores/authStore.store";
+import { selectSignIn, useAuthStore } from "@/stores/auth.store";
 import AuthForm from "../../../components/AuthForm/AuthForm";
 
 const SignIn = () => {

@@ -1,4 +1,4 @@
-import { selectLogout, useAuthStore } from "@/stores/authStore.store";
+import { selectLogout, useAuthStore } from "@/stores/auth.store";
 import { Button } from "../ui/button";
 import Logo from "@/assets/logo.svg";
 

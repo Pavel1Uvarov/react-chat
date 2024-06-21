@@ -5,11 +5,7 @@ import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
-import {
-  useAuthStore,
-  selectLoading,
-  selectError,
-} from "@/stores/authStore.store";
+import { useAuthStore, selectLoading, selectError } from "@/stores/auth.store";
 
 interface IAuthFormProps {
   type: "SignIn" | "SignUp";
@@ -82,7 +78,7 @@ const AuthForm = ({ type, onSubmit }: IAuthFormProps) => {
               />
             </div>
           </div>
-          <Button className="w-full">
+          <Button className="w-full" disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {type === "SignIn" ? "Sign in" : "Sign up"}
           </Button>

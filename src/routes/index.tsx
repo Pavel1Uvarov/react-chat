@@ -1,10 +1,10 @@
+import IsAuthUser from "@/helpers/IsAuthUser";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 import MainLayout from "../layouts/MainLayout/MainLayout";
 import SignIn from "../pages/Auth/SignIn/SignIn";
 import SignUp from "../pages/Auth/SignUp/SignUp";
 import Home from "../pages/Home/Home";
 import RequireAuth from "@/helpers/RequireAuth";
-import IsAuthUser from "@/helpers/IsAuthUser";
 
 const routes = [
   {

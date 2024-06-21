@@ -1,8 +1,8 @@
-export interface Identity {
+export interface IIdentity {
   identity_id: string
   id: string
   user_id: string
-  identity_data: IdentityData
+  identity_data: IIdentityData
   provider: string
   last_sign_in_at: string
   created_at: string
@@ -10,7 +10,7 @@ export interface Identity {
   email: string
 }
 
-export interface IdentityData {
+export interface IIdentityData {
   email: string
   email_verified: boolean
   phone_verified: boolean

@@ -1,11 +1,11 @@
-import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import supabase from "@/services/supabaseClient";
-import { AuthError, User } from "@supabase/supabase-js";
-import { Session } from "inspector";
+import { AuthError } from "@supabase/supabase-js";
 import { createWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
+import { useUserStore } from "./user.store";
+import { IUser } from "@/types/user.interface";
 
 interface IAuthStore {
   loading: boolean;
@@ -18,14 +18,6 @@ interface IAuthStore {
   logout: () => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
-}
-
-interface ISignUpResponse {
-  data: {
-    user: User
-    session: Session,
-  };
-  error: any;
 }
 
 export const useAuthStore = createWithEqualityFn<IAuthStore>()(devtools(immer(persist((set, get) => ({
@@ -56,51 +48,51 @@ export const useAuthStore = createWithEqualityFn<IAuthStore>()(devtools(immer(pe
     get().setLoading(true)
     get().setError(null)
 
-    if (typeof supabase !== 'undefined') {
-      try {
-        const { data } = await supabase.auth.signUp({
-          email,
-          password
-        })
+    try {
+      const { data } = await supabase.auth.signUp({
+        email,
+        password
+      })
 
-        if (data && data.session) {
-          get().setToken(data.session.access_token)
-        }
-      } catch(error) {
-        if (error instanceof AuthError) get().setError(error.message)
+      if (data && data.session) {
+        get().setToken(data.session.access_token)
       }
-      get().setLoading(false)
+    } catch(error) {
+      if (error instanceof AuthError) get().setError(error.message)
     }
+    get().setLoading(false)
   },
   signIn: async ({ email, password }) => {
     get().setLoading(true)
     get().setError(null)
 
-    if (typeof supabase !== 'undefined') {
-      try {
-        const { data } = await supabase.auth.signInWithPassword({
-          email,
-          password
-        })
+    try {
+      const { data } = await supabase.auth.signInWithPassword({
+        email,
+        password
+      })
 
-        if (data && data.session) {
-          get().setToken(data.session.access_token)
-        }
-      } catch(error) {
-        if (error instanceof AuthError) get().setError(error.message)
+      if (data && data.session) {
+        get().setToken(data.session.access_token)
+
+        useUserStore.getState().setUser(data.user as IUser)
       }
-      get().setLoading(false)
+    } catch(error) {
+      if (error instanceof AuthError) get().setError(error.message)
     }
+    get().setLoading(false)
   },
   logout: async () => {
+    get().setError(null)
+
     try {
-      if (typeof supabase !== 'undefined') {
-        await supabase.auth.signOut()
-      }
+      await supabase.auth.signOut()
+      await useUserStore.getState().clearUser()
 
       get().setToken(null)
     } catch (error) {
-
+      // @TODO: add push notification
+      if (error instanceof AuthError) get().setError(error.message)
     }
   }
 }),  { name: 'auth' }))), shallow)
