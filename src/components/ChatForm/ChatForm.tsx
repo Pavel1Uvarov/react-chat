@@ -1,7 +1,7 @@
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import { useCallback, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { selectSendMessage, useChatStore } from "@/stores/chat.store";
 
 const ChatForm = () => {
@@ -9,7 +9,8 @@ const ChatForm = () => {
   const submit = useChatStore(selectSendMessage);
 
   const handleSubmit = useCallback(
-    (message: string) => {
+    (e: FormEvent) => {
+      e.preventDefault;
       submit(message);
       setMessage("");
     },
@@ -17,7 +18,7 @@ const ChatForm = () => {
   );
 
   return (
-    <div className="flex gap-4">
+    <form className="flex gap-4" onSubmit={handleSubmit}>
       <Input
         className="bg-white shadow-md"
         placeholder="Enter a message"
@@ -25,14 +26,10 @@ const ChatForm = () => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <Button
-        className="shadow-md"
-        disabled={!message.length}
-        onClick={() => handleSubmit(message)}
-      >
+      <Button className="shadow-md" disabled={!message.length}>
         <PaperPlaneIcon />
       </Button>
-    </div>
+    </form>
   );
 };
 
