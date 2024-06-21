@@ -11,10 +11,11 @@ interface IAuthStore {
   loading: boolean;
   token: string | null;
   error: string | null;
-  setToken: (token: string) => void;
+  setToken: (token: string | null) => void;
   clearToken: () => void;
   signUp: ({ email, password }: { email: string, password: string }) => void;
   signIn: ({ email, password }: { email: string, password: string }) => void;
+  logout: () => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 }
@@ -90,6 +91,17 @@ export const useAuthStore = createWithEqualityFn<IAuthStore>()(devtools(immer(pe
       }
       get().setLoading(false)
     }
+  },
+  logout: async () => {
+    try {
+      if (typeof supabase !== 'undefined') {
+        await supabase.auth.signOut()
+      }
+
+      get().setToken(null)
+    } catch (error) {
+
+    }
   }
 }),  { name: 'auth' }))), shallow)
 
@@ -98,3 +110,4 @@ export const selectSignUp = (state: IAuthStore) => state.signUp
 export const selectSignIn = (state: IAuthStore) => state.signIn
 export const selectError = (state: IAuthStore) => state.error
 export const selectLoading = (state: IAuthStore) => state.loading
+export const selectLogout = (state: IAuthStore) => state.logout

@@ -1,12 +1,17 @@
+import { selectLogout, useAuthStore } from "@/stores/authStore.store";
 import { Button } from "../ui/button";
 import Logo from "@/assets/logo.svg";
 
 const Header = () => {
+  const handleLogout = useAuthStore(selectLogout);
+
   return (
     <div className="w-full py-3 shadow-md flex items-center justify-between px-5">
       <img src={Logo} className="w-10" />
       <div>
-        <Button variant="ghost">Log Out</Button>
+        <Button variant="ghost" onClick={handleLogout}>
+          Log Out
+        </Button>
       </div>
     </div>
   );
