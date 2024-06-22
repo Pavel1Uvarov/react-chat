@@ -1,12 +1,10 @@
 import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import supabase from "@/services/supabaseClient";
-import { AuthError } from "@supabase/supabase-js";
+import { AuthApiError, AuthError } from "@supabase/supabase-js";
 import { createWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
 import { useUserStore } from "./user.store";
-import { IUser } from "@/types/user.interface";
-
 interface IAuthStore {
   loading: boolean;
   token: string | null;
@@ -48,43 +46,45 @@ export const useAuthStore = createWithEqualityFn<IAuthStore>()(devtools(immer(pe
     get().setLoading(true)
     get().setError(null)
 
-    try {
-      const { data } = await supabase.auth.signUp({
-        email,
-        password
-      })
-
-      if (data && data.session) {
-        get().setToken(data.session.access_token)
-      }
-    } catch(error) {
-      if (error instanceof AuthError) get().setError(error.message)
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password
+    })
+    
+    if (data && data.session) {
+      get().setToken(data.session.access_token)
     }
+    
+    if (error && error instanceof AuthError) {
+      get().setError(error.message)
+    }
+
     get().setLoading(false)
   },
   signIn: async ({ email, password }) => {
     get().setLoading(true)
     get().setError(null)
 
-    try {
-      const { data } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      })
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    })
 
-      if (data && data.session) {
-        get().setToken(data.session.access_token)
+    if (data && data.session) {
+      get().setToken(data.session.access_token)
 
-        useUserStore.getState().setUser(data.user as IUser)
-      }
-    } catch(error) {
-      if (error instanceof AuthError) get().setError(error.message)
+      useUserStore.getState().fetchCurrentUser()
     }
+
+    if (error && error instanceof AuthError) {
+      get().setError(error.message)
+    }
+
     get().setLoading(false)
   },
   logout: async () => {
     get().setError(null)
-
+    
     try {
       await supabase.auth.signOut()
       await useUserStore.getState().clearUser()
@@ -101,5 +101,6 @@ export const selectToken = (state: IAuthStore) => state.token
 export const selectSignUp = (state: IAuthStore) => state.signUp
 export const selectSignIn = (state: IAuthStore) => state.signIn
 export const selectError = (state: IAuthStore) => state.error
+export const selectSetError = (state: IAuthStore) => state.setError
 export const selectLoading = (state: IAuthStore) => state.loading
 export const selectLogout = (state: IAuthStore) => state.logout

@@ -1,35 +1,23 @@
-import { FormEvent, useCallback, useMemo, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
-import { useAuthStore, selectLoading, selectError } from "@/stores/auth.store";
 import { Link } from "react-router-dom";
-
-interface IAuthFormProps {
-  type: "SignIn" | "SignUp";
-  onSubmit: ({ email, password }: { email: string; password: string }) => void;
-}
+import { IAuthFormProps, useAuthForm } from "./_authForm.hook";
 
 const AuthForm = ({ type, onSubmit }: IAuthFormProps) => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const loading = useAuthStore(selectLoading);
-  const error = useAuthStore(selectError);
-
-  const handleSubmit = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-      onSubmit({ email, password });
-    },
-    [email, password]
-  );
-
-  const isTypeSignIn = useMemo(() => {
-    return type === "SignIn";
-  }, [type]);
+  const {
+    email,
+    password,
+    handleSubmit,
+    setEmail,
+    setPassword,
+    isTypeSignIn,
+    loading,
+    error,
+  } = useAuthForm({ type, onSubmit });
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-white min-w-96 shadow-md">
@@ -111,7 +99,9 @@ const AuthForm = ({ type, onSubmit }: IAuthFormProps) => {
             )}
           </p>
 
-          <p className={cn("text-red-500", error ? "" : "hidden")}>{error}</p>
+          <p className={cn("text-red-500 text-center", error ? "" : "hidden")}>
+            {error}
+          </p>
         </form>
       </div>
     </div>
