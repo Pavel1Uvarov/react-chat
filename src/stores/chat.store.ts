@@ -15,6 +15,7 @@ interface IChatStore {
   sendMessage: (message: string) => void;
   setLoading: (loading: boolean) => void;
   setSaving: (loading: boolean) => void;
+  sortMessages: (messages: IMessage[]) => IMessage[];
 }
 
 export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(persist((set, get) => ({
@@ -24,7 +25,9 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
   fetchMessages: async () => {
     get().setLoading(true)
     try {
-      const { data } = await supabase.from('messages').select('*');
+      let { data } = await supabase.from('messages').select('*');
+
+      if (data) data = get().sortMessages(data as IMessage[])
       
       set((state) => {
         state.messages = data as IMessage[];
@@ -37,6 +40,7 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
     }
     get().setLoading(false)
   },
+  sortMessages: (messages) => messages.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()),
   setSaving: (saving: boolean) => {
     set((state) => {
       state.saving = saving

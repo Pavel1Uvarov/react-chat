@@ -1,16 +1,19 @@
 import Chat from "@/components/Chat/Chat";
 import ChatForm from "@/components/ChatForm/ChatForm";
+import NotificationSound from "@/components/NotificationSound/NotificationSound";
 import supabase from "@/services/supabaseClient";
 import {
   selectFetchMessages,
   selectMessages,
   useChatStore,
 } from "@/stores/chat.store";
+import { selectTogglePlaySoundNotification, useNotificationsStore } from "@/stores/notifications.store";
 import { useEffect } from "react";
 
 const Home = () => {
   const fetchMessages = useChatStore(selectFetchMessages);
   const messages = useChatStore(selectMessages);
+  const playNotificationSound = useNotificationsStore(selectTogglePlaySoundNotification);
 
   useEffect(() => {
     const subscription = supabase
@@ -18,8 +21,9 @@ const Home = () => {
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "messages" },
-        () => {
-          fetchMessages();
+        async () => {
+          await fetchMessages();
+          await playNotificationSound();
         }
       )
       .subscribe();
@@ -38,6 +42,7 @@ const Home = () => {
       <div className="flex-1">
         <ChatForm />
       </div>
+      <NotificationSound />
     </div>
   );
 };
