@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useCallback, useMemo, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 
 import { useAuthStore, selectLoading, selectError } from "@/stores/auth.store";
+import { Link } from "react-router-dom";
 
 interface IAuthFormProps {
   type: "SignIn" | "SignUp";
@@ -26,11 +27,15 @@ const AuthForm = ({ type, onSubmit }: IAuthFormProps) => {
     [email, password]
   );
 
+  const isTypeSignIn = useMemo(() => {
+    return type === "SignIn";
+  }, [type]);
+
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-white min-w-96 shadow-md">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          {type === "SignIn"
+          {isTypeSignIn
             ? "Sign in to your account"
             : "Sign up for a new account"}
         </h2>
@@ -80,8 +85,32 @@ const AuthForm = ({ type, onSubmit }: IAuthFormProps) => {
           </div>
           <Button className="w-full" disabled={loading}>
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {type === "SignIn" ? "Sign in" : "Sign up"}
+            {isTypeSignIn ? "Sign in" : "Sign up"}
           </Button>
+          <p className="text-center">
+            {isTypeSignIn ? (
+              <>
+                Haven't account?
+                <Link
+                  to="/auth/sign-up"
+                  className="text-blue-500 hover:text-blue-600 ml-1"
+                >
+                  Sign up
+                </Link>
+              </>
+            ) : (
+              <>
+                Already have account?
+                <Link
+                  to="/auth/sign-in"
+                  className="text-blue-500 hover:text-blue-600 ml-1"
+                >
+                  Sign in
+                </Link>
+              </>
+            )}
+          </p>
+
           <p className={cn("text-red-500", error ? "" : "hidden")}>{error}</p>
         </form>
       </div>
