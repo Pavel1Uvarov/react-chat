@@ -1,19 +1,27 @@
 import Chat from "@/components/Chat/Chat";
 import ChatForm from "@/components/ChatForm/ChatForm";
 import NotificationSound from "@/components/NotificationSound/NotificationSound";
+import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
 import supabase from "@/services/supabaseClient";
 import {
   selectFetchMessages,
   selectMessages,
   useChatStore,
 } from "@/stores/chat.store";
-import { selectTogglePlaySoundNotification, useNotificationsStore } from "@/stores/notifications.store";
+import {
+  selectTogglePlaySoundNotification,
+  useNotificationsStore,
+} from "@/stores/notifications.store";
+import { IMessage } from "@/types/message.interface";
 import { useEffect } from "react";
 
 const Home = () => {
   const fetchMessages = useChatStore(selectFetchMessages);
+  const { userId } = useStoresSelectors();
   const messages = useChatStore(selectMessages);
-  const playNotificationSound = useNotificationsStore(selectTogglePlaySoundNotification);
+  const playNotificationSound = useNotificationsStore(
+    selectTogglePlaySoundNotification
+  );
 
   useEffect(() => {
     const subscription = supabase
@@ -21,9 +29,13 @@ const Home = () => {
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "messages" },
-        async () => {
+        async (val) => {
+          const newVal = val.new as IMessage;
           await fetchMessages();
-          await playNotificationSound();
+
+          if (newVal.user_id !== userId) {
+            await playNotificationSound();
+          }
         }
       )
       .subscribe();

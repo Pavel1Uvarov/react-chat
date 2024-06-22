@@ -3,9 +3,14 @@ import Message from "../Message/Message";
 import { useScrollToBottom } from "@/hooks/_scrollToBottom.hook";
 import { Button } from "../ui/button";
 import { DoubleArrowDownIcon } from "@radix-ui/react-icons";
+import { useEffect } from "react";
 
 const Chat = ({ messages }: { messages: IMessage[] }) => {
   const { sectionRef, showButton, scrollToBottom } = useScrollToBottom();
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   return (
     <div

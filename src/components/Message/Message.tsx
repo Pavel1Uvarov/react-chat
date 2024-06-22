@@ -1,10 +1,10 @@
+import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
 import { cn, formatDate } from "@/lib/utils";
-import { selectUser, useUserStore } from "@/stores/user.store";
 import { IMessage } from "@/types/message.interface";
 import { useMemo } from "react";
 
 const Message = ({ message }: { message: IMessage }) => {
-  const userId = useUserStore(selectUser)?.id;
+  const { userId } = useStoresSelectors();
   const isCurrentUser = useMemo(() => {
     return userId === message.user_id;
   }, [userId, message]);

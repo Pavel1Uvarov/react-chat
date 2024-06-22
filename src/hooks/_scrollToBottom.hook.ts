@@ -33,7 +33,6 @@ export const useScrollToBottom = () => {
     if (sectionRef.current) {
       sectionRef.current.scrollTo({
         top: sectionRef.current.scrollHeight,
-        behavior: 'smooth',
       });
     }
   };

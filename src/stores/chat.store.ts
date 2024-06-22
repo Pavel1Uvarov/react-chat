@@ -33,10 +33,7 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
         state.messages = data as IMessage[];
       });
     } catch (error) {
-      if (error instanceof AuthError) {
-        console.log(error);
-        
-      }
+      if (error instanceof AuthError) console.log(error);
     }
     get().setLoading(false)
   },
@@ -63,9 +60,7 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
         }]);
       }
     } catch (error) {
-      if (error instanceof AuthError) {
-        console.log(error);
-      }
+      if (error instanceof AuthError) console.log(error);
     }
     get().setSaving(false)
   }
