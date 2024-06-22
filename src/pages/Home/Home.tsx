@@ -49,7 +49,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-col h-full gap-4 w-[30rem]">
+    <div className="flex flex-col h-full gap-4 w-[30rem] px-4">
       <Chat messages={messages} />
       <div className="flex-1">
         <ChatForm />
