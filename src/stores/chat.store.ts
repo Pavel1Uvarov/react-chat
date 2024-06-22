@@ -30,7 +30,7 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
       if (data) data = get().sortMessages(data as IMessage[])
       
       set((state) => {
-        state.messages = data as IMessage[];
+        state.messages = data ? data as IMessage[] : [];
       });
     } catch (error) {
       if (error instanceof AuthError) console.log(error);
@@ -64,7 +64,7 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
     }
     get().setSaving(false)
   }
-}), {name: 'chat-store'}))), shallow)
+}), {name: 'chat-store', version: 1}))), shallow)
 
 export const selectMessages = (state: IChatStore) => state.messages
 export const selectSavingLoader = (state: IChatStore) => state.saving
