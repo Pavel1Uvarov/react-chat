@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -33,5 +33,46 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  plugins: [
+    function ({ addUtilities, e, theme, variants }) {
+      const newUtilities = {
+        ".scrollbar-thin": {
+          "scrollbar-width": "thin",
+        },
+        ".scrollbar-none": {
+          "scrollbar-width": "none",
+        },
+        ".scrollbar": {
+          "scrollbar-color": `${theme("colors.scrollbar-thumb")} ${theme(
+            "colors.scrollbar-bg"
+          )}`,
+          "scrollbar-width": "auto",
+        },
+        ".scrollbar-thumb": {
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: theme("colors.scrollbar-thumb"),
+            borderRadius: "10px",
+          },
+        },
+        ".scrollbar-thumb-hover": {
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: theme("colors.scrollbar-thumb-hover"),
+          },
+        },
+        ".scrollbar-track": {
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: theme("colors.scrollbar-bg"),
+          },
+        },
+        ".scrollbar-rounded": {
+          "&::-webkit-scrollbar-thumb": {
+            borderRadius: "10px",
+          },
+        },
+      };
+
+      addUtilities(newUtilities, variants("scrollbar"));
+    },
+    require("tailwindcss-animate"),
+  ],
+};

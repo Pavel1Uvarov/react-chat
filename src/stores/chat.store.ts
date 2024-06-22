@@ -12,6 +12,7 @@ interface IChatStore {
   loading: boolean;
   fetchMessages: () => void,
   sendMessage: (message: string) => void;
+  setLoading: (loading: boolean) => void;
 }
 
 export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(persist((set, get) => ({
@@ -31,9 +32,13 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
       }
     }
   },
+  setLoading: (loading: boolean) => {
+    set((state) => {
+      state.loading = loading
+    })
+  },
   sendMessage: async (message) => {
-    console.log(useUserStore.getState());
-    
+    get().setLoading(true)
     try {
       if (useUserStore.getState().user?.id !== null) {
         await supabase.from('messages').insert([{
@@ -45,12 +50,11 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
     } catch (error) {
       if (error instanceof AuthError) {
         console.log(error);
-        
       }
     }
-
+    get().setLoading(false)
   }
-}), {name: 'chat'}))), shallow)
+}), {name: 'chat-store'}))), shallow)
 
 export const selectMessages = (state: IChatStore) => state.messages
 export const selectLoading = (state: IChatStore) => state.loading
