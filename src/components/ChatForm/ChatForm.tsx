@@ -2,13 +2,13 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import { FormEvent, useCallback, useState } from "react";
-import { selectLoading, selectSendMessage, useChatStore } from "@/stores/chat.store";
+import { selectSavingLoader, selectSendMessage, useChatStore } from "@/stores/chat.store";
 import { Loader2 } from "lucide-react";
 
 const ChatForm = () => {
   const [message, setMessage] = useState<string>("");
   const submit = useChatStore(selectSendMessage);
-  const loading = useChatStore(selectLoading);
+  const loading = useChatStore(selectSavingLoader);
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {

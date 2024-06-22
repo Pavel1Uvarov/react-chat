@@ -9,16 +9,20 @@ import { useUserStore } from "./user.store";
 
 interface IChatStore {
   messages: IMessage[];
+  saving: boolean;
   loading: boolean;
   fetchMessages: () => void,
   sendMessage: (message: string) => void;
   setLoading: (loading: boolean) => void;
+  setSaving: (loading: boolean) => void;
 }
 
 export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(persist((set, get) => ({
   messages: [],
+  saving: false,
   loading: false,
   fetchMessages: async () => {
+    get().setLoading(true)
     try {
       const { data } = await supabase.from('messages').select('*');
       
@@ -31,6 +35,12 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
         
       }
     }
+    get().setLoading(false)
+  },
+  setSaving: (saving: boolean) => {
+    set((state) => {
+      state.saving = saving
+    })
   },
   setLoading: (loading: boolean) => {
     set((state) => {
@@ -38,12 +48,13 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
     })
   },
   sendMessage: async (message) => {
-    get().setLoading(true)
+    get().setSaving(true)
     try {
       if (useUserStore.getState().user?.id !== null) {
         await supabase.from('messages').insert([{
           text: message,
           user_id: useUserStore.getState().user?.id,
+          user_email: useUserStore.getState().user?.email,
           username: useUserStore.getState().user?.username || 'Anonymous'
         }]);
       }
@@ -52,11 +63,12 @@ export const useChatStore = createWithEqualityFn<IChatStore>()(devtools(immer(pe
         console.log(error);
       }
     }
-    get().setLoading(false)
+    get().setSaving(false)
   }
 }), {name: 'chat-store'}))), shallow)
 
 export const selectMessages = (state: IChatStore) => state.messages
-export const selectLoading = (state: IChatStore) => state.loading
+export const selectSavingLoader = (state: IChatStore) => state.saving
+export const selectChatLoading = (state: IChatStore) => state.loading
 export const selectFetchMessages = (state: IChatStore) => state.fetchMessages
 export const selectSendMessage = (state: IChatStore) => state.sendMessage
