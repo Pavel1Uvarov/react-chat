@@ -1,17 +1,15 @@
 import { useEffect } from "react";
-import { selectToken, useAuthStore } from "@/stores/auth.store";
-import {
-  selectFetchCurrentUser,
-  selectUser,
-  useUserStore,
-} from "@/stores/user.store";
+import { selectToken } from "@/stores/auth.store";
+import { selectFetchCurrentUser, selectUser } from "@/stores/user.store";
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
+import { useBoundStore } from "@/stores/useBoundStore";
+import { useShallow } from "zustand/react/shallow";
 
 const RequireAuth = ({ children }: { children: ReactNode }) => {
-  const fetchUser = useUserStore(selectFetchCurrentUser);
-  const user = useUserStore(selectUser);
-  const token = useAuthStore(selectToken);
+  const fetchUser = useBoundStore(selectFetchCurrentUser);
+  const user = useBoundStore(useShallow(selectUser));
+  const token = useBoundStore(useShallow(selectToken));
 
   useEffect(() => {
     checkAuth();
@@ -25,7 +23,7 @@ const RequireAuth = ({ children }: { children: ReactNode }) => {
     return <Navigate to="/auth/sign-in" />;
   }
 
-  return <>{children}</>; // Wrap children in a fragment to avoid potential issues
+  return <>{children}</>;
 };
 
 export default RequireAuth;

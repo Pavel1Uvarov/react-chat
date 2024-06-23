@@ -1,8 +1,9 @@
 import AuthForm from "@/components/AuthForm/AuthForm";
-import { selectSignUp, useAuthStore } from "@/stores/auth.store";
+import { selectSignUp } from "@/stores/auth.store";
+import { useBoundStore } from "@/stores/useBoundStore";
 
 const SignUp = () => {
-  const onSubmit = useAuthStore(selectSignUp);
+  const onSubmit = useBoundStore(selectSignUp);
 
   return (
     <>

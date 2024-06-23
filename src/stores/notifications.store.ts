@@ -1,29 +1,30 @@
-import { devtools } from "zustand/middleware";
-import { immer } from "zustand/middleware/immer";
-import { shallow } from "zustand/shallow";
-import { createWithEqualityFn } from "zustand/traditional";
+import { StateCreator } from "zustand";
+import { TCMutators, TMutators } from "./useBoundStore";
 
-interface INotificationsStore {
+export interface INotificationsSlice {
   playSoundNotification: boolean;
   togglePlaySoundNotification: () => void;
 }
 
-export const useNotificationsStore = createWithEqualityFn<INotificationsStore>()(devtools(immer((set) => (
-  {
-    playSoundNotification: false,
-    togglePlaySoundNotification: async () => {
+export const createNotificationsSlice: StateCreator<
+  INotificationsSlice,
+  TMutators,
+  TCMutators
+> = (set) => ({
+  playSoundNotification: false,
+  togglePlaySoundNotification: async () => {
+    set((state) => {
+      state.playSoundNotification = true;
+    });
+
+    setTimeout(() => {
       set((state) => {
-        state.playSoundNotification = true;
+        state.playSoundNotification = false;
       });
-
-      setTimeout(() => {
-        set((state) => {
-          state.playSoundNotification = false;
-        });
-      }, 1000)
-    }
-  }
-))), shallow);
-
-export const selectPlaySoundNotification = (state: INotificationsStore) => state.playSoundNotification;
-export const selectTogglePlaySoundNotification = (state: INotificationsStore) => state.togglePlaySoundNotification;
+    }, 1000);
+  },
+});
+export const selectPlaySoundNotification = (state: INotificationsSlice) =>
+  state.playSoundNotification;
+export const selectTogglePlaySoundNotification = (state: INotificationsSlice) =>
+  state.togglePlaySoundNotification;

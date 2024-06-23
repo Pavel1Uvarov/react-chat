@@ -2,13 +2,15 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import { FormEvent, useCallback, useState } from "react";
-import { selectSavingLoader, selectSendMessage, useChatStore } from "@/stores/chat.store";
+import { selectSavingLoader, selectSendMessage } from "@/stores/chat.store";
 import { Loader2 } from "lucide-react";
+import { useBoundStore } from "@/stores/useBoundStore";
+import { useShallow } from "zustand/react/shallow";
 
 const ChatForm = () => {
   const [message, setMessage] = useState<string>("");
-  const submit = useChatStore(selectSendMessage);
-  const loading = useChatStore(selectSavingLoader);
+  const submit = useBoundStore(selectSendMessage);
+  const loading = useBoundStore(useShallow(selectSavingLoader));
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
@@ -29,8 +31,11 @@ const ChatForm = () => {
         onChange={(e) => setMessage(e.target.value)}
       />
       <Button className="shadow-md" disabled={!message.length}>
-        { loading ? <Loader2 className="h-4 w-4 animate-spin" /> :  <PaperPlaneIcon />}
-        
+        {loading ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : (
+          <PaperPlaneIcon />
+        )}
       </Button>
     </form>
   );

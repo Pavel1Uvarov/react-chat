@@ -3,23 +3,18 @@ import ChatForm from "@/components/ChatForm/ChatForm";
 import NotificationSound from "@/components/NotificationSound/NotificationSound";
 import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
 import supabase from "@/services/supabaseClient";
-import {
-  selectFetchMessages,
-  selectMessages,
-  useChatStore,
-} from "@/stores/chat.store";
-import {
-  selectTogglePlaySoundNotification,
-  useNotificationsStore,
-} from "@/stores/notifications.store";
+import { selectFetchMessages, selectMessages } from "@/stores/chat.store";
+import { selectTogglePlaySoundNotification } from "@/stores/notifications.store";
+import { useBoundStore } from "@/stores/useBoundStore";
 import { IMessage } from "@/types/message.interface";
 import { useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 const Home = () => {
-  const fetchMessages = useChatStore(selectFetchMessages);
+  const fetchMessages = useBoundStore(selectFetchMessages);
   const { userId } = useStoresSelectors();
-  const messages = useChatStore(selectMessages);
-  const playNotificationSound = useNotificationsStore(
+  const messages = useBoundStore(useShallow(selectMessages));
+  const playNotificationSound = useBoundStore(
     selectTogglePlaySoundNotification
   );
 
