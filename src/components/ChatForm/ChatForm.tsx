@@ -6,17 +6,21 @@ import { selectSavingLoader, selectSendMessage } from "@/stores/chat.store";
 import { Loader2 } from "lucide-react";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { useShallow } from "zustand/react/shallow";
+import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
 
 const ChatForm = () => {
   const [message, setMessage] = useState<string>("");
-  const submit = useBoundStore(selectSendMessage);
+  const submit = useBoundStore(useShallow(selectSendMessage));
   const loading = useBoundStore(useShallow(selectSavingLoader));
+  const { user } = useStoresSelectors();
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      submit(message);
-      setMessage("");
+      if (user !== null) {
+        submit(message, user);
+        setMessage("");
+      }
     },
     [message, submit]
   );

@@ -1,19 +1,19 @@
 import supabase from "@/services/supabaseClient";
 import { IMessage } from "@/types/message.interface";
 import { AuthError } from "@supabase/supabase-js";
-import { TCMutators, TMutators, useBoundStore } from "./useBoundStore";
+import { TCMutators, TMutators } from "./useBoundStore";
 import { StateCreator } from "zustand";
-import { selectUser } from "./user.store";
+import { sortMessages } from "@/services/messageService";
+import { IUser } from "@/types/user.interface";
 
 export interface IChatSlice {
   messages: IMessage[];
   saving: boolean;
   loading: boolean;
   fetchMessages: () => void;
-  sendMessage: (message: string) => void;
+  sendMessage: (message: string, user: IUser) => void;
   setLoading: (loading: boolean) => void;
   setSaving: (loading: boolean) => void;
-  sortMessages: (messages: IMessage[]) => IMessage[];
 }
 
 export const createChatStore: StateCreator<
@@ -29,7 +29,7 @@ export const createChatStore: StateCreator<
     try {
       let { data } = await supabase.from("messages").select("*");
 
-      if (data) data = get().sortMessages(data as IMessage[]);
+      if (data) data = sortMessages(data as IMessage[]);
 
       set((state) => {
         state.messages = data ? (data as IMessage[]) : [];
@@ -39,11 +39,6 @@ export const createChatStore: StateCreator<
     }
     get().setLoading(false);
   },
-  sortMessages: (messages) =>
-    messages.sort(
-      (a, b) =>
-        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-    ),
   setSaving: (saving: boolean) => {
     set((state) => {
       state.saving = saving;
@@ -54,9 +49,9 @@ export const createChatStore: StateCreator<
       state.loading = loading;
     });
   },
-  sendMessage: async (message) => {
+  sendMessage: async (message, user) => {
     get().setSaving(true);
-    const user = useBoundStore(selectUser);
+
     try {
       if (user?.id !== null) {
         await supabase.from("messages").insert([

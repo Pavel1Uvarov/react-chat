@@ -87,7 +87,7 @@ export const createAuthSlice: StateCreator<
 
     try {
       await supabase.auth.signOut();
-      await api.getState().clearUser();
+      await api.getState().clearUser()
 
       get().setToken(null);
     } catch (error) {

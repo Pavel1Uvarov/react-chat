@@ -12,7 +12,7 @@ import { useShallow } from "zustand/react/shallow";
 
 const Home = () => {
   const fetchMessages = useBoundStore(selectFetchMessages);
-  const { userId } = useStoresSelectors();
+  const { user } = useStoresSelectors();
   const messages = useBoundStore(useShallow(selectMessages));
   const playNotificationSound = useBoundStore(
     selectTogglePlaySoundNotification
@@ -28,7 +28,7 @@ const Home = () => {
           const newVal = val.new as IMessage;
           await fetchMessages();
 
-          if (newVal.user_id !== userId) {
+          if (newVal.user_id !== user?.id) {
             await playNotificationSound();
           }
         }
