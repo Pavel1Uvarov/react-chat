@@ -1,23 +1,8 @@
-import { useEffect, useRef } from "react";
 import notificationSound from "@/assets/notification/notificationSound.mp3";
-import {
-  selectPlaySoundNotification,
-  useNotificationsStore,
-} from "@/stores/notifications.store";
+import { useSoundNotification } from "./_notificationSound.hook";
 
 const NotificationSound = () => {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const isPlaySound = useNotificationsStore(selectPlaySoundNotification);
-
-  useEffect(() => {
-    if (isPlaySound) playSound();
-  }, [isPlaySound]);
-
-  const playSound = () => {
-    if (audioRef && audioRef.current) {
-      audioRef.current.play();
-    }
-  };
+  const { audioRef } = useSoundNotification();
 
   return <audio ref={audioRef} src={notificationSound} preload="auto" />;
 };

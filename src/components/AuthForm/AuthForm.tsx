@@ -3,7 +3,6 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-
 import { Link } from "react-router-dom";
 import { IAuthFormProps, useAuthForm } from "./_authForm.hook";
 

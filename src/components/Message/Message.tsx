@@ -4,10 +4,10 @@ import { IMessage } from "@/types/message.interface";
 import { useMemo } from "react";
 
 const Message = ({ message }: { message: IMessage }) => {
-  const { userId } = useStoresSelectors();
+  const { user } = useStoresSelectors();
   const isCurrentUser = useMemo(() => {
-    return userId === message.user_id;
-  }, [userId, message]);
+    return user?.id === message.user_id;
+  }, [user, message]);
 
   return (
     <div className={cn("w-full flex", isCurrentUser ? "justify-end" : "")}>

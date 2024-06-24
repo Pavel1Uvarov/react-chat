@@ -3,23 +3,18 @@ import ChatForm from "@/components/ChatForm/ChatForm";
 import NotificationSound from "@/components/NotificationSound/NotificationSound";
 import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
 import supabase from "@/services/supabaseClient";
-import {
-  selectFetchMessages,
-  selectMessages,
-  useChatStore,
-} from "@/stores/chat.store";
-import {
-  selectTogglePlaySoundNotification,
-  useNotificationsStore,
-} from "@/stores/notifications.store";
+import { selectFetchMessages, selectMessages } from "@/stores/chat.store";
+import { selectTogglePlaySoundNotification } from "@/stores/notifications.store";
+import { useBoundStore } from "@/stores/useBoundStore";
 import { IMessage } from "@/types/message.interface";
 import { useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 const Home = () => {
-  const fetchMessages = useChatStore(selectFetchMessages);
-  const { userId } = useStoresSelectors();
-  const messages = useChatStore(selectMessages);
-  const playNotificationSound = useNotificationsStore(
+  const fetchMessages = useBoundStore(selectFetchMessages);
+  const { user } = useStoresSelectors();
+  const messages = useBoundStore(useShallow(selectMessages));
+  const playNotificationSound = useBoundStore(
     selectTogglePlaySoundNotification
   );
 
@@ -33,7 +28,7 @@ const Home = () => {
           const newVal = val.new as IMessage;
           await fetchMessages();
 
-          if (newVal.user_id !== userId) {
+          if (newVal.user_id !== user?.id) {
             await playNotificationSound();
           }
         }

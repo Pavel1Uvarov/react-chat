@@ -1,36 +1,43 @@
 import supabase from "@/services/supabaseClient";
 import { IUser } from "@/types/user.interface";
-import { devtools, persist } from "zustand/middleware";
-import { immer } from "zustand/middleware/immer";
-import { shallow } from "zustand/shallow";
-import { createWithEqualityFn } from "zustand/traditional";
+import { StateCreator } from "zustand";
+import { TCMutators, TMutators } from "./useBoundStore";
 
-interface IUserStore {
+export interface IUserSlice {
   user: IUser | null;
   fetchCurrentUser: () => void;
   clearUser: () => void;
   setUser: (user: IUser | null) => void;
 }
 
-export const useUserStore = createWithEqualityFn<IUserStore>()(devtools(immer(persist((set, get) => ({
+export const createUserSlice: StateCreator<
+  IUserSlice,
+  TMutators,
+  TCMutators
+> = (set, get) => ({
   user: null,
   fetchCurrentUser: async () => {
-    const { data: { user } } = await supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    get().setUser(user as IUser | null)
+    get().setUser(user as IUser | null);
   },
   setUser: (user) => {
     set((state) => {
-      state.user = user
-    })
+      state.user = user;
+    });
   },
   clearUser: () => {
     set((state) => {
-      state.user = null
-    })
-  }
-}), {name: 'user'}))), shallow);
+      state.user = null;
+    });
+  },
+});
 
-export const selectUser = (state: IUserStore) => state.user;
-export const selectFetchCurrentUser = (state: IUserStore) => state.fetchCurrentUser
-export const selectClearUser = (state: IUserStore) => state.clearUser
+export const selectUser = (state: IUserSlice) => state.user;
+
+export const selectFetchCurrentUser = (state: IUserSlice) =>
+  state.fetchCurrentUser;
+
+export const selectClearUser = (state: IUserSlice) => state.clearUser;

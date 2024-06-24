@@ -1,9 +1,10 @@
-import { selectLogout, useAuthStore } from "@/stores/auth.store";
+import { selectLogout } from "@/stores/auth.store";
 import { Button } from "../ui/button";
 import Logo from "@/assets/logo.svg";
+import { useBoundStore } from "@/stores/useBoundStore";
 
 const Header = () => {
-  const handleLogout = useAuthStore(selectLogout);
+  const handleLogout = useBoundStore(selectLogout);
 
   return (
     <div className="w-full py-3 shadow-md flex items-center justify-between px-5">

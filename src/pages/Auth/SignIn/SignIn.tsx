@@ -1,8 +1,9 @@
-import { selectSignIn, useAuthStore } from "@/stores/auth.store";
+import { selectSignIn } from "@/stores/auth.store";
 import AuthForm from "../../../components/AuthForm/AuthForm";
+import { useBoundStore } from "@/stores/useBoundStore";
 
 const SignIn = () => {
-  const onSubmit = useAuthStore(selectSignIn);
+  const onSubmit = useBoundStore(selectSignIn);
 
   return (
     <>
