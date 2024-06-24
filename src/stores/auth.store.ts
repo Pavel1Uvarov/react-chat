@@ -2,6 +2,7 @@ import supabase from "@/services/supabaseClient";
 import { AuthError } from "@supabase/supabase-js";
 import { TCMutators, TMutators } from "./useBoundStore";
 import { StateCreator } from "zustand";
+import { IUserSlice } from "./user.store";
 export interface IAuthSlice {
   loading: boolean;
   token: string | null;
@@ -16,10 +17,11 @@ export interface IAuthSlice {
 }
 
 export const createAuthSlice: StateCreator<
-  IAuthSlice,
+  IAuthSlice & IUserSlice,
   TMutators,
-  TCMutators
-> = (set, get, api) => ({
+  TCMutators,
+  IAuthSlice
+> = (set, get) => ({
   loading: false,
   token: null,
   error: null,
@@ -70,10 +72,10 @@ export const createAuthSlice: StateCreator<
       email,
       password,
     });
-
     if (data && data.session) {
       get().setToken(data.session.access_token);
-      api.getState().fetchCurrentUser();
+
+      get().fetchCurrentUser();
     }
 
     if (error && error instanceof AuthError) {
@@ -87,7 +89,7 @@ export const createAuthSlice: StateCreator<
 
     try {
       await supabase.auth.signOut();
-      await api.getState().clearUser()
+      await get().clearUser();
 
       get().setToken(null);
     } catch (error) {
