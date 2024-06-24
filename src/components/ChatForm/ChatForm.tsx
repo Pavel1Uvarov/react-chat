@@ -1,29 +1,11 @@
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import { FormEvent, useCallback, useState } from "react";
-import { selectSavingLoader, selectSendMessage } from "@/stores/chat.store";
 import { Loader2 } from "lucide-react";
-import { useBoundStore } from "@/stores/useBoundStore";
-import { useShallow } from "zustand/react/shallow";
-import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
+import { useChatForm } from "./_chatForm.hook";
 
 const ChatForm = () => {
-  const [message, setMessage] = useState<string>("");
-  const submit = useBoundStore(useShallow(selectSendMessage));
-  const loading = useBoundStore(useShallow(selectSavingLoader));
-  const { user } = useStoresSelectors();
-
-  const handleSubmit = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-      if (user !== null) {
-        submit(message, user);
-        setMessage("");
-      }
-    },
-    [message, submit]
-  );
+  const { message, handleSubmit, setMessage, loading } = useChatForm();
 
   return (
     <form className="flex gap-4" onSubmit={handleSubmit}>
