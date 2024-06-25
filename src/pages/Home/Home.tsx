@@ -2,46 +2,16 @@ import Chat from "@/components/Chat/Chat";
 import ChatForm from "@/components/ChatForm/ChatForm";
 import NotificationSound from "@/components/NotificationSound/NotificationSound";
 import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
-import supabase from "@/services/supabaseClient";
-import { selectFetchMessages, selectMessages } from "@/stores/chat.store";
-import { selectTogglePlaySoundNotification } from "@/stores/notifications.store";
+import { useSubscribeToMessages } from "@/hooks/_subscribeToMessages.hook";
+import { selectMessages } from "@/stores/chat.store";
 import { useBoundStore } from "@/stores/useBoundStore";
-import { IMessage } from "@/types/message.interface";
-import { useEffect } from "react";
 import { useShallow } from "zustand/react/shallow";
 
 const Home = () => {
-  const fetchMessages = useBoundStore(selectFetchMessages);
   const { user } = useStoresSelectors();
   const messages = useBoundStore(useShallow(selectMessages));
-  const playNotificationSound = useBoundStore(
-    selectTogglePlaySoundNotification
-  );
 
-  useEffect(() => {
-    const subscription = supabase
-      .channel("custom-all-channel")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "messages" },
-        async (val) => {
-          const newVal = val.new as IMessage;
-          await fetchMessages();
-
-          if (newVal.user_id !== user?.id) {
-            await playNotificationSound();
-          }
-        }
-      )
-      .subscribe();
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  useEffect(() => {
-    fetchMessages();
-  }, []);
+  useSubscribeToMessages(user);
 
   return (
     <div className="flex flex-col h-full gap-4 w-[30rem] px-4">
