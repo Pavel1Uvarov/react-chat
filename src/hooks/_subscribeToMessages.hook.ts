@@ -13,11 +13,15 @@ export const useSubscribeToMessages = (user: IUser | null) => {
     selectTogglePlaySoundNotification
   );
   useEffect(() => {
+    if (user !== null) {
+      fetchMessages();
+    }
+
     const handleNewMessage = async (
       val: RealtimePostgresChangesPayload<any>
     ) => {
       const newVal = val.new as IMessage;
-      await fetchMessages();
+      await fetchMessages(false);
 
       if (newVal.user_id !== user?.id) {
         await playNotificationSound();

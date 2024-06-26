@@ -1,8 +1,8 @@
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import { Loader2 } from "lucide-react";
 import { useChatForm } from "./_chatForm.hook";
+import Spinner from "../Spinner/Spinner";
 
 const ChatForm = () => {
   const { message, handleSubmit, setMessage, loading } = useChatForm();
@@ -17,11 +17,7 @@ const ChatForm = () => {
         onChange={(e) => setMessage(e.target.value)}
       />
       <Button className="shadow-md" disabled={!message.length}>
-        {loading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <PaperPlaneIcon />
-        )}
+        {loading ? <Spinner className="h-4 w-4" /> : <PaperPlaneIcon />}
       </Button>
     </form>
   );

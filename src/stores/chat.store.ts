@@ -10,10 +10,11 @@ export interface IChatSlice {
   messages: IMessage[];
   saving: boolean;
   loading: boolean;
-  fetchMessages: () => void;
+  fetchMessages: (preloading?: boolean) => void;
   sendMessage: (message: string, user: IUser) => void;
   setLoading: (loading: boolean) => void;
   setSaving: (loading: boolean) => void;
+  clearMessages: () => void;
 }
 
 export const createChatStore: StateCreator<
@@ -24,8 +25,9 @@ export const createChatStore: StateCreator<
   messages: [],
   saving: false,
   loading: false,
-  fetchMessages: async () => {
-    get().setLoading(true);
+  fetchMessages: async (preloading = true) => {
+    if (preloading) get().setLoading(true);
+    
     try {
       let { data } = await supabase.from("messages").select("*");
 
@@ -68,6 +70,11 @@ export const createChatStore: StateCreator<
     }
     get().setSaving(false);
   },
+  clearMessages: () => {
+    set((state) => {
+      state.messages = [];
+    });
+  }
 });
 
 export const selectMessages = (state: IChatSlice) => state.messages;
@@ -75,3 +82,4 @@ export const selectSavingLoader = (state: IChatSlice) => state.saving;
 export const selectChatLoading = (state: IChatSlice) => state.loading;
 export const selectFetchMessages = (state: IChatSlice) => state.fetchMessages;
 export const selectSendMessage = (state: IChatSlice) => state.sendMessage;
+export const selectChatLoadingMessages = (state: IChatSlice) => state.loading;
