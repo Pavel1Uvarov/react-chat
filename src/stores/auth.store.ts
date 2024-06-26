@@ -3,6 +3,7 @@ import { AuthError } from "@supabase/supabase-js";
 import { TCMutators, TMutators } from "./useBoundStore";
 import { StateCreator } from "zustand";
 import { IUserSlice } from "./user.store";
+import { IChatSlice } from "./chat.store";
 export interface IAuthSlice {
   loading: boolean;
   token: string | null;
@@ -17,7 +18,7 @@ export interface IAuthSlice {
 }
 
 export const createAuthSlice: StateCreator<
-  IAuthSlice & IUserSlice,
+  IAuthSlice & IUserSlice & IChatSlice,
   TMutators,
   TCMutators,
   IAuthSlice
@@ -90,6 +91,7 @@ export const createAuthSlice: StateCreator<
     try {
       await supabase.auth.signOut();
       await get().clearUser();
+      await get().clearMessages();
 
       get().setToken(null);
     } catch (error) {

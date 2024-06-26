@@ -4,8 +4,15 @@ import { useScrollToBottom } from "@/hooks/_scrollToBottom.hook";
 import { Button } from "../ui/button";
 import { DoubleArrowDownIcon } from "@radix-ui/react-icons";
 import { useEffect } from "react";
+import Spinner from "../Spinner/Spinner";
 
-const Chat = ({ messages }: { messages: IMessage[] }) => {
+const Chat = ({
+  messages,
+  isLoading,
+}: {
+  messages: IMessage[];
+  isLoading: boolean;
+}) => {
   const { sectionRef, showButton, scrollToBottom } = useScrollToBottom();
 
   useEffect(() => {
@@ -17,6 +24,7 @@ const Chat = ({ messages }: { messages: IMessage[] }) => {
       className="bg-white shadow-md rounded-md p-3 overflow-y-auto gap-4 flex flex-col h-[80vh] scrollbar-thin scrollbar-thumb-hover scrollbar-track scrollbar-rounded relative"
       ref={sectionRef}
     >
+      {isLoading && <Spinner className="w-10 h-10 mx-auto my-auto" />}
       {messages.map((message: IMessage) => (
         <Message message={message} key={message.id} />
       ))}
