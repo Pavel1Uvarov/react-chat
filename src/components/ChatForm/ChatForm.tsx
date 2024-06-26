@@ -1,7 +1,6 @@
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import { Loader2 } from "lucide-react";
 import { useChatForm } from "./_chatForm.hook";
 import Spinner from "../Spinner/Spinner";
 
