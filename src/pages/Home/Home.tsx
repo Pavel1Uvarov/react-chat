@@ -3,14 +3,17 @@ import ChatForm from "@/components/ChatForm/ChatForm";
 import NotificationSound from "@/components/NotificationSound/NotificationSound";
 import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
 import { useSubscribeToMessages } from "@/hooks/_subscribeToMessages.hook";
-import { selectChatLoadingMessages, selectMessages } from "@/stores/chat.store";
+import {
+  selectChatLoadingMessages,
+  selectMessages,
+} from "@/stores/slices/chat.store";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { useShallow } from "zustand/react/shallow";
 
 const Home = () => {
   const { user } = useStoresSelectors();
   const messages = useBoundStore(useShallow(selectMessages));
-  const isLoading = useBoundStore(useShallow(selectChatLoadingMessages))
+  const isLoading = useBoundStore(useShallow(selectChatLoadingMessages));
 
   useSubscribeToMessages(user);
 

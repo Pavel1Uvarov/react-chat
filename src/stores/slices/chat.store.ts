@@ -1,7 +1,7 @@
 import supabase from "@/services/supabaseClient";
 import { IMessage } from "@/types/message.interface";
 import { AuthError } from "@supabase/supabase-js";
-import { TCMutators, TMutators } from "./useBoundStore";
+import { TCMutators, TMutators } from "../useBoundStore";
 import { StateCreator } from "zustand";
 import { sortMessages } from "@/services/messageService";
 import { IUser } from "@/types/user.interface";
@@ -27,7 +27,7 @@ export const createChatStore: StateCreator<
   loading: false,
   fetchMessages: async (preloading = true) => {
     if (preloading) get().setLoading(true);
-    
+
     try {
       let { data } = await supabase.from("messages").select("*");
 
@@ -74,7 +74,7 @@ export const createChatStore: StateCreator<
     set((state) => {
       state.messages = [];
     });
-  }
+  },
 });
 
 export const selectMessages = (state: IChatSlice) => state.messages;

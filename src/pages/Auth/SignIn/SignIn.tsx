@@ -1,4 +1,4 @@
-import { selectSignIn } from "@/stores/auth.store";
+import { selectSignIn } from "@/stores/slices/auth.store";
 import AuthForm from "../../../components/AuthForm/AuthForm";
 import { useBoundStore } from "@/stores/useBoundStore";
 

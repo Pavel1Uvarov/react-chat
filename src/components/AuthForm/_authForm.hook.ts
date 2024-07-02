@@ -2,7 +2,7 @@ import {
   selectLoading,
   selectError,
   selectSetError,
-} from "@/stores/auth.store";
+} from "@/stores/slices/auth.store";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { useState, useCallback, FormEvent, useMemo, useEffect } from "react";
 import { useShallow } from "zustand/react/shallow";

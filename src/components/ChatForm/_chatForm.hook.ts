@@ -1,5 +1,8 @@
 import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
-import { selectSendMessage, selectSavingLoader } from "@/stores/chat.store";
+import {
+  selectSendMessage,
+  selectSavingLoader,
+} from "@/stores/slices/chat.store";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { useState, useCallback, FormEvent } from "react";
 import { useShallow } from "zustand/react/shallow";
@@ -26,6 +29,6 @@ export const useChatForm = () => {
     setMessage,
     submit,
     loading,
-    handleSubmit
-  }
-}
+    handleSubmit,
+  };
+};

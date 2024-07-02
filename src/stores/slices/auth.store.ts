@@ -1,6 +1,6 @@
 import supabase from "@/services/supabaseClient";
 import { AuthError } from "@supabase/supabase-js";
-import { TCMutators, TMutators } from "./useBoundStore";
+import { TCMutators, TMutators } from "../useBoundStore";
 import { StateCreator } from "zustand";
 import { IUserSlice } from "./user.store";
 import { IChatSlice } from "./chat.store";

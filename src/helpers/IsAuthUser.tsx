@@ -1,4 +1,4 @@
-import { selectToken } from "@/stores/auth.store";
+import { selectToken } from "@/stores/slices/auth.store";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";

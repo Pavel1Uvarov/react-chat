@@ -1,4 +1,4 @@
-import { selectPlaySoundNotification } from "@/stores/notifications.store";
+import { selectPlaySoundNotification } from "@/stores/slices/notifications.store";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { useRef, useEffect } from "react";
 
@@ -20,5 +20,5 @@ export const useSoundNotification = () => {
     playSound,
     audioRef,
     isPlaySound,
-  }
-}
+  };
+};

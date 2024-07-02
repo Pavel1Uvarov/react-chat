@@ -1,5 +1,5 @@
 import { useBoundStore } from "@/stores/useBoundStore";
-import { selectUser } from "@/stores/user.store";
+import { selectUser } from "@/stores/slices/user.store";
 import { useShallow } from "zustand/react/shallow";
 
 export const useStoresSelectors = () => {

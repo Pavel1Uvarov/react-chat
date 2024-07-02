@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { IUser } from "@/types/user.interface";
-import { selectFetchMessages } from "@/stores/chat.store";
+import { selectFetchMessages } from "@/stores/slices/chat.store";
 import supabase from "@/services/supabaseClient";
 import { useBoundStore } from "@/stores/useBoundStore";
-import { selectTogglePlaySoundNotification } from "@/stores/notifications.store";
+import { selectTogglePlaySoundNotification } from "@/stores/slices/notifications.store";
 import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
 import { IMessage } from "@/types/message.interface";
 

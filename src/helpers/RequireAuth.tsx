@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { selectToken } from "@/stores/auth.store";
+import { selectToken } from "@/stores/slices/auth.store";
 import { selectFetchCurrentUser, selectUser } from "@/stores/user.store";
 import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";

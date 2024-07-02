@@ -1,5 +1,5 @@
 import AuthForm from "@/components/AuthForm/AuthForm";
-import { selectSignUp } from "@/stores/auth.store";
+import { selectSignUp } from "@/stores/slices/auth.store";
 import { useBoundStore } from "@/stores/useBoundStore";
 
 const SignUp = () => {

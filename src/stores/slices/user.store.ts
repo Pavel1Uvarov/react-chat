@@ -1,7 +1,7 @@
 import supabase from "@/services/supabaseClient";
 import { IUser } from "@/types/user.interface";
 import { StateCreator } from "zustand";
-import { TCMutators, TMutators } from "./useBoundStore";
+import { TCMutators, TMutators } from "../useBoundStore";
 
 export interface IUserSlice {
   user: IUser | null;
