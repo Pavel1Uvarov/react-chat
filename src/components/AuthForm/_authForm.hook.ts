@@ -1,23 +1,15 @@
-import {
-  selectLoading,
-  selectError,
-  selectSetError,
-} from "@/stores/slices/auth.store";
-import { useBoundStore } from "@/stores/useBoundStore";
-import { useState, useCallback, FormEvent, useMemo, useEffect } from "react";
-import { useShallow } from "zustand/react/shallow";
+import { useState, useCallback, FormEvent, useMemo } from "react";
 
 export interface IAuthFormProps {
   type: "SignIn" | "SignUp";
+  isLoading?: boolean;
+  error?: Error | null;
   onSubmit: ({ email, password }: { email: string; password: string }) => void;
 }
 
 export const useAuthForm = ({ type, onSubmit }: IAuthFormProps) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const loading = useBoundStore(useShallow(selectLoading));
-  const error = useBoundStore(useShallow(selectError));
-  const setError = useBoundStore(selectSetError);
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
@@ -31,17 +23,9 @@ export const useAuthForm = ({ type, onSubmit }: IAuthFormProps) => {
     return type === "SignIn";
   }, [type]);
 
-  useEffect(() => {
-    return () => {
-      setError(null);
-    };
-  }, [type]);
-
   return {
     email,
     password,
-    loading,
-    error,
     setEmail,
     setPassword,
     handleSubmit,

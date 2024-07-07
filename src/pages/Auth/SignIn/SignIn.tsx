@@ -1,13 +1,17 @@
-import { selectSignIn } from "@/stores/slices/auth.store";
 import AuthForm from "../../../components/AuthForm/AuthForm";
-import { useBoundStore } from "@/stores/useBoundStore";
+import useSignIn from "@/hooks/useSignIn";
 
 const SignIn = () => {
-  const onSubmit = useBoundStore(selectSignIn);
+  const { mutate, isPending, error } = useSignIn();
 
   return (
     <>
-      <AuthForm type="SignIn" onSubmit={onSubmit} />
+      <AuthForm
+        type="SignIn"
+        onSubmit={mutate}
+        isLoading={isPending}
+        error={error}
+      />
     </>
   );
 };

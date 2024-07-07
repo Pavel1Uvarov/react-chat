@@ -6,17 +6,9 @@ import { Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { IAuthFormProps, useAuthForm } from "./_authForm.hook";
 
-const AuthForm = ({ type, onSubmit }: IAuthFormProps) => {
-  const {
-    email,
-    password,
-    handleSubmit,
-    setEmail,
-    setPassword,
-    isTypeSignIn,
-    loading,
-    error,
-  } = useAuthForm({ type, onSubmit });
+const AuthForm = ({ type, onSubmit, isLoading, error }: IAuthFormProps) => {
+  const { email, password, handleSubmit, setEmail, setPassword, isTypeSignIn } =
+    useAuthForm({ type, onSubmit });
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-white min-w-96 shadow-md">
@@ -70,8 +62,8 @@ const AuthForm = ({ type, onSubmit }: IAuthFormProps) => {
               />
             </div>
           </div>
-          <Button className="w-full" disabled={loading}>
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <Button className="w-full" disabled={isLoading}>
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {isTypeSignIn ? "Sign in" : "Sign up"}
           </Button>
           <p className="text-center">
@@ -99,7 +91,7 @@ const AuthForm = ({ type, onSubmit }: IAuthFormProps) => {
           </p>
 
           <p className={cn("text-red-500 text-center", error ? "" : "hidden")}>
-            {error}
+            {typeof error === "string" ? error : "An error occurred"}
           </p>
         </form>
       </div>

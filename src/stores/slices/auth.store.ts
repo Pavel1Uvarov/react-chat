@@ -102,6 +102,7 @@ export const createAuthSlice: StateCreator<
 });
 
 export const selectToken = (state: IAuthSlice) => state.token;
+export const selectSetToken = (state: IAuthSlice) => state.setToken;
 export const selectSignUp = (state: IAuthSlice) => state.signUp;
 export const selectSignIn = (state: IAuthSlice) => state.signIn;
 export const selectError = (state: IAuthSlice) => state.error;
