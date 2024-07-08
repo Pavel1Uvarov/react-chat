@@ -1,13 +1,13 @@
 import { useBoundStore } from "@/stores/useBoundStore.ts";
 import { selectSetToken } from "@/stores/slices/auth.store.ts";
 import { useMutation } from "@tanstack/react-query";
-import { IAuthInterface, signUpUser } from "@/api/authApi.tsx";
+import { IAuthFormInterface, signUpUser } from "@/api/authApi.tsx";
 
 const useSignUp = () => {
   const setToken = useBoundStore(selectSetToken);
 
   return useMutation({
-    mutationFn: async ({ email, password }: IAuthInterface) => {
+    mutationFn: async ({ email, password }: IAuthFormInterface) => {
       try {
         return await signUpUser({ email, password });
       } catch (error) {
