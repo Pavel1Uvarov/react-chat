@@ -1,26 +1,20 @@
-import { render } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, render } from "@testing-library/react";
 import Header from "@/components/Header/Header";
-import { selectLogout } from "@/stores/slices/auth.store";
+// import useLogout from "@/hooks/useLogout.hook.ts";
 
-jest.mock("@/stores/slices/auth.store", () => ({
-  ...jest.requireActual("@/stores/slices/auth.store"),
-  selectLogout: jest.fn(),
-}));
+const mockedMutate = jest.fn();
 
 jest.mock("@/assets/logo.svg", () => "logo.svg");
-
-const mockedSelectLogout = selectLogout as jest.MockedFunction<
-  typeof selectLogout
->;
+jest.mock('@/hooks/useLogout.hook.ts', () => ({
+  __esModule: true,
+  default: () => ({
+    mutate: mockedMutate
+  }),
+}));
 
 describe("Header component", () => {
-  beforeEach(() => {
-    mockedSelectLogout.mockClear();
-  });
-
   it("renders correctly", () => {
-    const { getByText, getByAltText } = render(<Header />);
+    const { getByText, getByAltText } = render(<Header/>);
 
     const logo = getByAltText("Logo");
     expect(logo).toHaveAttribute("src", "logo.svg");
@@ -30,13 +24,13 @@ describe("Header component", () => {
   });
 
   it("calls handleLogout when Log Out button is clicked", async () => {
-    const { getByText } = render(<Header />);
+    const { getByText } = render(<Header/>);
 
     const logoutButton = getByText("Log Out");
 
-    await userEvent.click(logoutButton);
+    fireEvent.click(logoutButton);
 
-    expect(mockedSelectLogout).toHaveBeenCalledTimes(1);
+    expect(mockedMutate).toHaveBeenCalledTimes(1);
   });
 
   afterEach(() => {

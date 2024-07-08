@@ -7,8 +7,22 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
-    '^.+\\.(js|jsx)$': 'babel-jest',
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        diagnostics: {
+          ignoreCodes: [1343]
+        },
+        astTransformers: {
+          before: [
+            {
+              path: 'node_modules/ts-jest-mock-import-meta',  // or, alternatively, 'ts-jest-mock-import-meta' directly, without node_modules.
+              options: {metaObjectReplacement: {url: 'https://www.url.com'}}
+            }
+          ]
+        }
+      }
+    ]
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 };
