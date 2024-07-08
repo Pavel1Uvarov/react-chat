@@ -27,3 +27,7 @@ export const signUpUser = async ({ email, password }: IAuthFormInterface) => {
 
   return data;
 };
+
+export const signOutUser = async () => {
+  await supabase.auth.signOut();
+};

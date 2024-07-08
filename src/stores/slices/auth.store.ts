@@ -1,4 +1,3 @@
-import supabase from "@/services/supabaseClient";
 import { TCMutators, TMutators } from "../useBoundStore";
 import { StateCreator } from "zustand";
 import { IUserSlice } from "./user.store";
@@ -8,7 +7,6 @@ export interface IAuthSlice {
   token: string | null;
   setToken: (token: string | null) => void;
   clearToken: () => void;
-  logout: () => void;
 }
 
 export const createAuthSlice: StateCreator<
@@ -16,7 +14,7 @@ export const createAuthSlice: StateCreator<
   TMutators,
   TCMutators,
   IAuthSlice
-> = (set, get) => ({
+> = (set) => ({
   token: null,
   setToken: (token) => {
     set((state) => {
@@ -28,20 +26,7 @@ export const createAuthSlice: StateCreator<
       state.token = null;
     });
   },
-  logout: async () => {
-    try {
-      await supabase.auth.signOut();
-      await get().clearUser();
-      await get().clearMessages();
-
-      get().setToken(null);
-    } catch (error) {
-      // @TODO: add push notification
-      console.log(error)
-    }
-  },
 });
 
 export const selectToken = (state: IAuthSlice) => state.token;
 export const selectSetToken = (state: IAuthSlice) => state.setToken;
-export const selectLogout = (state: IAuthSlice) => state.logout;

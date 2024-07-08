@@ -28,3 +28,4 @@ export const createChatStore: StateCreator<
 
 export const selectMessages = (state: IChatSlice) => state.messages;
 export const selectSetMessages = (state: IChatSlice) => state.setMessages;
+export const selectClearMessages = (state: IChatSlice) => state.clearMessages;
