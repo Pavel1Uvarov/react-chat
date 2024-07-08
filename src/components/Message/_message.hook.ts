@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { IMessageProps } from "./Message";
-import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
+import { useStoresSelectors } from "@/hooks/useStoresSelectors.hook.ts";
 
-export const useMessage = ({message}: IMessageProps) => {
+export const useMessage = ({ message }: IMessageProps) => {
   const { user } = useStoresSelectors();
 
   const isCurrentUser = useMemo(() => {
