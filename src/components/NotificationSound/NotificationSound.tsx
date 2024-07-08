@@ -4,7 +4,7 @@ import { useSoundNotification } from "./_notificationSound.hook";
 const NotificationSound = () => {
   const { audioRef } = useSoundNotification();
 
-  return <audio ref={audioRef} src={notificationSound} preload="auto" />;
+  return <audio ref={audioRef} src={notificationSound} preload="auto" autoPlay={true}/>;
 };
 
 export default NotificationSound;

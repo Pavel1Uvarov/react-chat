@@ -1,4 +1,4 @@
-import { useState, useCallback, FormEvent, useMemo } from "react";
+import { FormEvent, useCallback, useMemo, useState } from "react";
 
 export interface IAuthFormProps {
   type: "SignIn" | "SignUp";
@@ -16,7 +16,7 @@ export const useAuthForm = ({ type, onSubmit }: IAuthFormProps) => {
       e.preventDefault();
       onSubmit({ email, password });
     },
-    [email, password]
+    [email, onSubmit, password]
   );
 
   const isTypeSignIn = useMemo(() => {

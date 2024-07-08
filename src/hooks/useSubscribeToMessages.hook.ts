@@ -1,48 +1,48 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { IUser } from "@/types/user.interface";
-import { selectFetchMessages } from "@/stores/slices/chat.store";
 import supabase from "@/services/supabaseClient";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { selectTogglePlaySoundNotification } from "@/stores/slices/notifications.store";
 import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
 import { IMessage } from "@/types/message.interface";
+import { useQueryClient } from "@tanstack/react-query";
+import { useShallow } from "zustand/react/shallow";
 
 export const useSubscribeToMessages = (user: IUser | null) => {
-  const fetchMessages = useBoundStore(selectFetchMessages);
+  const client = useQueryClient()
   const playNotificationSound = useBoundStore(
-    selectTogglePlaySoundNotification
+    useShallow(selectTogglePlaySoundNotification)
   );
-  useEffect(() => {
-    if (user !== null) {
-      fetchMessages();
+
+  const handleNewMessage = useCallback(async (
+    val: RealtimePostgresChangesPayload<never>
+  ) => {
+    const newVal = val.new as IMessage;
+
+    await client.invalidateQueries({ queryKey: ['messages'] })
+
+    if (newVal.user_id !== user?.id) {
+      playNotificationSound();
     }
+  }, [client, playNotificationSound, user?.id]);
 
-    const handleNewMessage = async (
-      val: RealtimePostgresChangesPayload<any>
-    ) => {
-      const newVal = val.new as IMessage;
-      await fetchMessages(false);
+  const subscribeToMessages = useCallback(() => {
+    return supabase
+      .channel("custom-all-channel")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "messages" },
+        handleNewMessage
+      )
+      .subscribe();
+  }, [handleNewMessage]);
 
-      if (newVal.user_id !== user?.id) {
-        await playNotificationSound();
-      }
-    };
 
-    const subscribeToMessages = () => {
-      return supabase
-        .channel("custom-all-channel")
-        .on(
-          "postgres_changes",
-          { event: "*", schema: "public", table: "messages" },
-          handleNewMessage
-        )
-        .subscribe();
-    };
-
+  useEffect(() => {
     const subscription = subscribeToMessages();
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [user]);
+  }, [subscribeToMessages, user]);
 };
