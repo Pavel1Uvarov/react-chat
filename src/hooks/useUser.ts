@@ -1,7 +1,7 @@
 import { selectSetUser } from "@/stores/slices/user.store.ts";
 import { useBoundStore } from "@/stores/useBoundStore.ts";
 import { useQuery } from "@tanstack/react-query";
-import { fetchCurrentUser } from "@/api/userApi.tsx";
+import { fetchCurrentUser } from "@/api/userApi.ts";
 import { IUser } from "@/types/user.interface.ts";
 
 const useUser = () => {

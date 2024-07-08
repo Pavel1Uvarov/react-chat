@@ -1,7 +1,7 @@
 import { useBoundStore } from "@/stores/useBoundStore.ts";
 import { selectSetToken } from "@/stores/slices/auth.store.ts";
 import { useMutation } from "@tanstack/react-query";
-import { IAuthFormInterface, signUpUser } from "@/api/authApi.tsx";
+import { IAuthFormInterface, signUpUser } from "@/api/authApi.ts";
 
 const useSignUp = () => {
   const setToken = useBoundStore(selectSetToken);
