@@ -1,8 +1,8 @@
 import AuthForm from "@/components/AuthForm/AuthForm";
-import useSignUp from "@/hooks/useSignUp.ts";
+import useSignUpHook from "@/hooks/useSignUp.hook.ts";
 
 const SignUp = () => {
-  const { mutate, isPending, error } = useSignUp();
+  const { mutate, isPending, error } = useSignUpHook();
 
   return <AuthForm type="SignUp" onSubmit={mutate} isLoading={isPending} error={error}/>
 };

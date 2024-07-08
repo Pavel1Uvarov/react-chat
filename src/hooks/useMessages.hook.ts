@@ -4,7 +4,7 @@ import { useBoundStore } from "@/stores/useBoundStore.ts";
 import { useShallow } from "zustand/react/shallow";
 import { selectSetMessages } from "@/stores/slices/chat.store.ts";
 
-const useMessages = () => {
+const useMessagesHook = () => {
   const setMessages = useBoundStore(useShallow(selectSetMessages))
 
   return useQuery({
@@ -17,4 +17,4 @@ const useMessages = () => {
   });
 };
 
-export default useMessages;
+export default useMessagesHook;

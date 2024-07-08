@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useStoresSelectors } from "@/hooks/useStoresSelectors.hook.ts";
 import { sendMessage } from "@/api/chatApi.ts";
 
-const useMessage = () => {
+const useMessageHook = () => {
   const { user } = useStoresSelectors()
   return useMutation({
     mutationFn: async (message: string) => {
@@ -16,4 +16,4 @@ const useMessage = () => {
   })
 }
 
-export default useMessage;
+export default useMessageHook;

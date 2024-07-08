@@ -1,9 +1,9 @@
 import { FormEvent, useCallback, useState } from "react";
-import useMessage from "@/hooks/useMessage.ts";
+import useMessageHook from "@/hooks/useMessage.hook.ts";
 
 export const useChatForm = () => {
   const [message, setMessage] = useState<string>("");
-  const { isPending, mutate } = useMessage()
+  const { isPending, mutate } = useMessageHook()
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {

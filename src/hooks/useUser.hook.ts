@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchCurrentUser } from "@/api/userApi.ts";
 import { IUser } from "@/types/user.interface.ts";
 
-const useUser = () => {
+const useUserHook = () => {
   const setUser = useBoundStore(selectSetUser);
 
   return useQuery({
@@ -22,4 +22,4 @@ const useUser = () => {
   })
 }
 
-export default useUser;
+export default useUserHook;

@@ -5,13 +5,13 @@ import { useStoresSelectors } from "@/hooks/useStoresSelectors.hook.ts";
 import { selectMessages, } from "@/stores/slices/chat.store";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { useShallow } from "zustand/react/shallow";
-import useMessages from "@/hooks/useMessages.ts";
+import useMessagesHook from "@/hooks/useMessages.hook.ts";
 import { useSubscribeToMessages } from "@/hooks/useSubscribeToMessages.hook.ts";
 
 const Home = () => {
   const { user } = useStoresSelectors();
   const messages = useBoundStore(useShallow(selectMessages));
-  const { isLoading } = useMessages()
+  const { isLoading } = useMessagesHook()
   useSubscribeToMessages(user);
 
   return (

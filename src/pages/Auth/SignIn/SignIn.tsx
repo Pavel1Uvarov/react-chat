@@ -1,8 +1,8 @@
 import AuthForm from "../../../components/AuthForm/AuthForm";
-import useSignIn from "@/hooks/useSignIn";
+import useSignInHook from "@/hooks/useSignIn.hook.ts";
 
 const SignIn = () => {
-  const { mutate, isPending, error } = useSignIn();
+  const { mutate, isPending, error } = useSignInHook();
 
   return <AuthForm
     type="SignIn"
