@@ -6,12 +6,7 @@ const useMessageHook = () => {
   const { user } = useStoresSelectors()
   return useMutation({
     mutationFn: async (message: string) => {
-      try {
-        return await sendMessage(message, user)
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
+      return await sendMessage(message, user)
     }
   })
 }

@@ -8,12 +8,7 @@ const useSignInHook = () => {
 
   return useMutation({
     mutationFn: async ({ email, password }: IAuthFormInterface) => {
-      try {
-        return await signInUser({ email, password });
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
+      return await signInUser({ email, password });
     },
     onSuccess: (data) => {
       if (data?.session?.access_token) setToken(data?.session?.access_token);
