@@ -10,14 +10,11 @@ const useUserHook = () => {
   return useQuery({
     queryKey: ["currentUser"],
     queryFn: async () => {
-      try {
-        const resp = await fetchCurrentUser();
-        if (resp) setUser(resp as IUser | null);
-        return resp;
-      } catch (error) {
-        console.error("Error fetching user", error);
-        throw error;
-      }
+      const resp = await fetchCurrentUser();
+
+      if (resp) setUser(resp as IUser | null);
+      
+      return resp;
     },
   })
 }
