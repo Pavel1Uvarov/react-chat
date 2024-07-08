@@ -1,15 +1,10 @@
 import AuthForm from "@/components/AuthForm/AuthForm";
-import { selectSignUp } from "@/stores/slices/auth.store";
-import { useBoundStore } from "@/stores/useBoundStore";
+import useSignUp from "@/hooks/useSignUp.ts";
 
 const SignUp = () => {
-  const onSubmit = useBoundStore(selectSignUp);
+  const { mutate, isPending, error } = useSignUp();
 
-  return (
-    <>
-      <AuthForm type="SignUp" onSubmit={onSubmit} />
-    </>
-  );
+  return <AuthForm type="SignUp" onSubmit={mutate} isLoading={isPending} error={error}/>
 };
 
 export default SignUp;

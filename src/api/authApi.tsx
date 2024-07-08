@@ -12,22 +12,18 @@ export const signInUser = async ({ email, password }: IAuthInterface) => {
     password,
   });
 
-  if (error && error instanceof AuthError) throw error.message;
+  if (error instanceof AuthError) throw error.message;
 
   return data;
 };
 
 export const signUpUser = async ({ email, password }: IAuthInterface) => {
-  try {
-    const { data } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
 
-    return data;
-  } catch (err) {
-    if (err instanceof AuthError) {
-      throw new Error(err.message);
-    }
-  }
+  if (error instanceof AuthError) throw error.message;
+
+  return data;
 };
