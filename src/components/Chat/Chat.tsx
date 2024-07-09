@@ -6,10 +6,7 @@ import { DoubleArrowDownIcon } from "@radix-ui/react-icons";
 import { useEffect } from "react";
 import Spinner from "../Spinner/Spinner";
 
-const Chat = ({
-                messages,
-                isLoading,
-              }: {
+const Chat = ({ messages, isLoading }: {
   messages: IMessage[];
   isLoading: boolean;
 }) => {
@@ -22,9 +19,10 @@ const Chat = ({
   return (
     <div
       className="bg-white shadow-md rounded-md p-3 overflow-y-auto gap-4 flex flex-col h-[80vh] scrollbar-thin scrollbar-thumb-hover scrollbar-track scrollbar-rounded relative"
+      data-testid="chat-section"
       ref={sectionRef}
     >
-      {isLoading && <Spinner className="w-10 h-10 mx-auto my-auto"/>}
+      {isLoading && <Spinner data-testid="loading-spinner" className="w-10 h-10 mx-auto my-auto"/>}
       {messages.map((message: IMessage) => (
         <Message message={message} key={message.id}/>
       ))}
@@ -32,6 +30,8 @@ const Chat = ({
         <Button
           variant="secondary"
           className="sticky bottom-1 w-10 border border-gray-800 p-3 shadow-md ml-auto"
+          data-testid="scroll-to-bottom-button"
+          disabled={isLoading}
           onClick={scrollToBottom}
         >
           <DoubleArrowDownIcon/>

@@ -21,7 +21,7 @@ const AuthForm = ({ type, onSubmit, isLoading, error }: IAuthFormProps) => {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" data-testid="form" onSubmit={handleSubmit}>
           <div>
             <Label htmlFor="email">Email address</Label>
             <div className="mt-2">
@@ -62,8 +62,8 @@ const AuthForm = ({ type, onSubmit, isLoading, error }: IAuthFormProps) => {
               />
             </div>
           </div>
-          <Button className="w-full" disabled={isLoading}>
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <Button className="w-full" data-testid="submit-btn" disabled={isLoading}>
+            {isLoading && <Loader2 data-testid="loading" className="mr-2 h-4 w-4 animate-spin"/>}
             {isTypeSignIn ? "Sign in" : "Sign up"}
           </Button>
           <p className="text-center">
@@ -91,7 +91,7 @@ const AuthForm = ({ type, onSubmit, isLoading, error }: IAuthFormProps) => {
           </p>
 
           <p className={cn("text-red-500 text-center", error ? "" : "hidden")}>
-            {typeof error === "string" ? error : "An error occurred"}
+            {error ? error.message : "An error occurred"}
           </p>
         </form>
       </div>

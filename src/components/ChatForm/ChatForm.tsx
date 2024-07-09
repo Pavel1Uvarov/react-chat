@@ -8,7 +8,7 @@ const ChatForm = () => {
   const { message, handleSubmit, setMessage, isPending } = useChatForm();
 
   return (
-    <form className="flex gap-4" onSubmit={handleSubmit}>
+    <form className="flex gap-4" onSubmit={handleSubmit} data-testid="form">
       <Input
         className="bg-white shadow-md"
         placeholder="Enter a message"
@@ -16,7 +16,7 @@ const ChatForm = () => {
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <Button className="shadow-md" disabled={!message.length}>
+      <Button className="shadow-md" data-testid="send-btn" disabled={!message.length}>
         {isPending ? <Spinner className="h-4 w-4"/> : <PaperPlaneIcon/>}
       </Button>
     </form>

@@ -31,7 +31,7 @@ describe("Message Component", () => {
   it("Render Component Correctly", () => {
     const message: IMessage = ChatMessages[1];
 
-    const { getByText } = render(<Message message={message}/>);
+    const { getByText } = render(<Message message={message} />);
 
     expect(getByText(message.text)).toBeInTheDocument();
   });

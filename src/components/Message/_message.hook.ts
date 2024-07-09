@@ -10,6 +10,6 @@ export const useMessage = ({ message }: IMessageProps) => {
   }, [user, message]);
 
   return {
-    isCurrentUser
-  }
-}
+    isCurrentUser,
+  };
+};

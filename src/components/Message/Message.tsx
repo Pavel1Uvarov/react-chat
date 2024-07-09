@@ -25,7 +25,7 @@ const Message = ({ message }: IMessageProps) => {
         <div className="break-all font-light">{message.text}</div>
         <time
           className="text-xs flex justify-end text-slate-200 mt-3 font-bold"
-          dateTime="message.timestamp"
+          dateTime={message.timestamp}
         >
           {formatDate(message.timestamp)}
         </time>
