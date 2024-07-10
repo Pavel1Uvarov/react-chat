@@ -1,6 +1,6 @@
 import { IUser } from "@/types/user.interface";
 
-const user: IUser = {
+const testUser: IUser = {
   id: "1",
   aud: "test",
   role: "test",
@@ -19,4 +19,4 @@ const user: IUser = {
   updated_at: new Date().toString(),
 };
 
-export default user;
+export default testUser;
