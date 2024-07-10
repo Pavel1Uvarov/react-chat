@@ -1,15 +1,15 @@
-import { selectSignIn } from "@/stores/auth.store";
 import AuthForm from "../../../components/AuthForm/AuthForm";
-import { useBoundStore } from "@/stores/useBoundStore";
+import useSignInHook from "@/hooks/useSignIn.hook.ts";
 
 const SignIn = () => {
-  const onSubmit = useBoundStore(selectSignIn);
+  const { mutate, isPending, error } = useSignInHook();
 
-  return (
-    <>
-      <AuthForm type="SignIn" onSubmit={onSubmit} />
-    </>
-  );
+  return <AuthForm
+    type="SignIn"
+    onSubmit={mutate}
+    isLoading={isPending}
+    error={error}
+  />
 };
 
 export default SignIn;

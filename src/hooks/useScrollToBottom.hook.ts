@@ -14,7 +14,6 @@ export const useScrollToBottom = () => {
       }
     };
 
-
     if (section) {
       sectionRef.current.scrollTo({
         top: sectionRef.current.scrollHeight,

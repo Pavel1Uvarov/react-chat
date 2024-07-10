@@ -7,7 +7,7 @@ interface ISpinnerProps extends React.SVGAttributes<SVGSVGElement> {
 }
 
 const Spinner: FC<ISpinnerProps> = ({ className, ...props }) => {
-  return <Loader2 className={cn(className, "animate-spin")} {...props} />;
+  return <Loader2 data-testid="spinner" className={cn(className, "animate-spin")} {...props} />;
 };
 
 export default Spinner;

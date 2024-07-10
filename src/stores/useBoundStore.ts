@@ -1,13 +1,13 @@
 import { create } from "zustand";
-import { createUserSlice, IUserSlice } from "./user.store";
+import { createUserSlice, IUserSlice } from "./slices/user.store";
 import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import {
   createNotificationsSlice,
   INotificationsSlice,
-} from "./notifications.store";
-import { createChatStore, IChatSlice } from "./chat.store";
-import { createAuthSlice, IAuthSlice } from "./auth.store";
+} from "./slices/notifications.store";
+import { createChatStore, IChatSlice } from "./slices/chat.store";
+import { createAuthSlice, IAuthSlice } from "./slices/auth.store";
 
 export type TMutators = [["zustand/devtools", never], ["zustand/immer", never]];
 

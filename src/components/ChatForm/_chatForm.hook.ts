@@ -1,31 +1,23 @@
-import { useStoresSelectors } from "@/hooks/_storesSelectors.hook";
-import { selectSendMessage, selectSavingLoader } from "@/stores/chat.store";
-import { useBoundStore } from "@/stores/useBoundStore";
-import { useState, useCallback, FormEvent } from "react";
-import { useShallow } from "zustand/react/shallow";
+import { FormEvent, useCallback, useState } from "react";
+import useMessageHook from "@/hooks/useMessage.hook.ts";
 
 export const useChatForm = () => {
   const [message, setMessage] = useState<string>("");
-  const submit = useBoundStore(useShallow(selectSendMessage));
-  const loading = useBoundStore(useShallow(selectSavingLoader));
-  const { user } = useStoresSelectors();
+  const { isPending, mutate } = useMessageHook()
 
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      if (user !== null) {
-        submit(message, user);
-        setMessage("");
-      }
+      mutate(message)
+      setMessage("");
     },
-    [message, submit]
+    [message, mutate]
   );
 
   return {
     message,
     setMessage,
-    submit,
-    loading,
-    handleSubmit
-  }
-}
+    isPending,
+    handleSubmit,
+  };
+};

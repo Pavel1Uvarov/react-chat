@@ -1,16 +1,15 @@
-import { selectLogout } from "@/stores/auth.store";
 import { Button } from "../ui/button";
 import Logo from "@/assets/logo.svg";
-import { useBoundStore } from "@/stores/useBoundStore";
+import useLogout from "@/hooks/useLogout.hook.ts";
 
 const Header = () => {
-  const handleLogout = useBoundStore(selectLogout);
+  const { mutate } = useLogout()
 
   return (
     <div className="w-full py-3 shadow-md flex items-center justify-between px-5">
-      <img src={Logo} className="w-10" />
+      <img src={Logo} className="w-10" alt="Logo"/>
       <div>
-        <Button variant="ghost" onClick={handleLogout}>
+        <Button variant="ghost" onClick={() => mutate()}>
           Log Out
         </Button>
       </div>
