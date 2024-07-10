@@ -4,7 +4,7 @@ import { IUser } from "@/types/user.interface.ts";
 export const fetchMessages = async () => {
   const { data, error } = await supabase.from("messages").select("*");
 
-  if (error) throw error.message;
+  if (error) throw error;
 
   return data || [];
 }
@@ -19,7 +19,7 @@ export const sendMessage = async (message: string, user: IUser | null) => {
     },
   ]);
 
-  if (error) throw error.message;
+  if (error) throw error;
 
   return data || {};
 }

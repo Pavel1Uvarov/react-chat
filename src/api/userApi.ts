@@ -9,7 +9,7 @@ export const fetchCurrentUser = async () => {
     error
   } = await supabase.auth.getUser();
 
-  if (error instanceof AuthError) throw error.message;
+  if (error instanceof AuthError) throw error;
 
   return user || null;
 }
