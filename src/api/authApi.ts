@@ -12,7 +12,7 @@ export const signInUser = async ({ email, password }: IAuthFormInterface) => {
     password,
   });
 
-  if (error instanceof AuthError) throw error.message;
+  if (error instanceof AuthError) throw error;
 
   return data;
 };

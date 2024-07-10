@@ -91,7 +91,7 @@ const AuthForm = ({ type, onSubmit, isLoading, error }: IAuthFormProps) => {
           </p>
 
           <p className={cn("text-red-500 text-center", error ? "" : "hidden")}>
-            {error ? error.message : "An error occurred"}
+            {error instanceof Error ? error.message : "An error occurred"}
           </p>
         </form>
       </div>

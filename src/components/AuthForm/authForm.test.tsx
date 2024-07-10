@@ -3,7 +3,7 @@ import { act, fireEvent, render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 
 const mockedSubmit = jest.fn();
-const mockedError = "Error Test" as unknown as Error;
+const mockedError = new Error('Test Error');
 
 describe("Auth Form Component", () => {
   it("Correct render sign in", () => {
@@ -50,7 +50,7 @@ describe("Auth Form Component", () => {
       { wrapper: BrowserRouter }
     );
 
-    expect(getByText("Error Test")).toBeInTheDocument();
+    expect(getByText("Test Error")).toBeInTheDocument();
   });
 
   it("should display loading spinner", () => {
