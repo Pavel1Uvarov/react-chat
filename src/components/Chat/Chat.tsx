@@ -14,7 +14,7 @@ const Chat = ({ messages, isLoading }: {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, scrollToBottom]);
+  }, [messages]);
 
   return (
     <div

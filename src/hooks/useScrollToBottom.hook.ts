@@ -26,7 +26,7 @@ export const useScrollToBottom = () => {
         section.removeEventListener('scroll', handleScroll);
       }
     };
-  }, []);
+  }, [sectionRef]);
 
   const scrollToBottom = () => {
     if (sectionRef.current) {
