@@ -6,7 +6,7 @@ export const useChatForm = () => {
   const { isPending, mutate } = useMessageHook()
 
   const handleSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
+    (e: FormEvent) => {
       e.preventDefault();
       mutate(message)
       setMessage("");
