@@ -1,14 +1,14 @@
 import { useCallback, useEffect } from "react";
-import { IUser } from "@/types/user.interface";
 import supabase from "@/services/supabaseClient";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { selectTogglePlaySoundNotification } from "@/stores/slices/notifications.store";
-import { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
+import { RealtimePostgresChangesPayload, User } from "@supabase/supabase-js";
 import { IMessage } from "@/types/message.interface";
 import { useQueryClient } from "@tanstack/react-query";
 import { useShallow } from "zustand/react/shallow";
+import { QUERY_KEYS } from "@/constants/api.ts";
 
-export const useSubscribeToMessages = (user: IUser | null) => {
+export const useSubscribeToMessages = (user: User | null) => {
   const client = useQueryClient()
   const playNotificationSound = useBoundStore(
     useShallow(selectTogglePlaySoundNotification)
@@ -19,11 +19,9 @@ export const useSubscribeToMessages = (user: IUser | null) => {
   ) => {
     const newVal = val.new as IMessage;
 
-    await client.invalidateQueries({ queryKey: ['messages'] })
+    await client.invalidateQueries({ queryKey: [QUERY_KEYS.MESSAGES] })
 
-    if (newVal.user_id !== user?.id) {
-      playNotificationSound();
-    }
+    if (newVal.user_id !== user?.id) playNotificationSound();
   }, [client, playNotificationSound, user?.id]);
 
   const subscribeToMessages = useCallback(() => {

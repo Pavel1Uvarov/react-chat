@@ -1,11 +1,11 @@
-import { IUser } from "@/types/user.interface";
 import { StateCreator } from "zustand";
-import { TCMutators, TMutators } from "../useBoundStore";
+import { User } from "@supabase/supabase-js";
+import { TCMutators, TMutators } from "@/stores/useBoundStore.ts";
 
 export interface IUserSlice {
-  user: IUser | null;
+  user: User | null;
   clearUser: () => void;
-  setUser: (user: IUser | null) => void;
+  setUser: (user: User | null) => void;
 }
 
 export const createUserSlice: StateCreator<

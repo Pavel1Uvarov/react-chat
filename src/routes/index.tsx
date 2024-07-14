@@ -1,41 +1,43 @@
 import IsAuthUser from "@/helpers/IsAuthUser";
-import AuthLayout from "../layouts/AuthLayout/AuthLayout";
-import MainLayout from "../layouts/MainLayout/MainLayout";
-import SignIn from "../pages/Auth/SignIn/SignIn";
-import SignUp from "../pages/Auth/SignUp/SignUp";
-import Home from "../pages/Home/Home";
 import RequireAuth from "@/helpers/RequireAuth";
+import { ROUTES } from "@/constants/routes.ts";
+import MainLayout from "@/layouts/MainLayout/MainLayout.tsx";
+import AuthLayout from "@/layouts/AuthLayout/AuthLayout.tsx";
+import SignIn from "@/pages/Auth/SignIn/SignIn.tsx";
+import SignUp from "@/pages/Auth/SignUp/SignUp.tsx";
+import Home from "@/pages/Home/Home.tsx";
+import { RouteObject } from "react-router-dom";
 
-const routes = [
+const routes: RouteObject[] = [
   {
-    path: "/",
+    path: ROUTES.HOME,
     element: (
       <RequireAuth>
-        <MainLayout />
+        <MainLayout/>
       </RequireAuth>
     ),
     children: [
       {
-        path: "/",
-        element: <Home />,
+        path: ROUTES.HOME,
+        element: <Home/>,
       },
     ],
   },
   {
-    path: "/auth",
+    path: ROUTES.AUTH,
     element: (
       <IsAuthUser>
-        <AuthLayout />
+        <AuthLayout/>
       </IsAuthUser>
     ),
     children: [
       {
-        path: "/auth/sign-in",
-        element: <SignIn />,
+        path: ROUTES.SIGN_IN,
+        element: <SignIn/>,
       },
       {
-        path: "/auth/sign-up",
-        element: <SignUp />,
+        path: ROUTES.SIGN_UP,
+        element: <SignUp/>,
       },
     ],
   },

@@ -4,6 +4,7 @@ import { sendMessage } from "@/api/chatApi.ts";
 
 const useMessageHook = () => {
   const { user } = useStoresSelectors()
+
   return useMutation({
     mutationFn: async (message: string) => {
       return await sendMessage(message, user)

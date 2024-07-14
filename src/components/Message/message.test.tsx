@@ -3,8 +3,8 @@ import ChatMessages from "@/__mocks__/messages.mock";
 import { IMessage } from "@/types/message.interface";
 import { useStoresSelectors } from "@/hooks/useStoresSelectors.hook.ts";
 import user from "@/__mocks__/user.mock";
-import { useMessage } from "./_message.hook";
-import Message from "./Message";
+import { useMessage } from "@/components/Message/_message.hook.ts";
+import Message from "@/components/Message/Message.tsx";
 
 jest.mock("@/hooks/useStoresSelectors.hook.ts");
 
@@ -31,7 +31,7 @@ describe("Message Component", () => {
   it("Render Component Correctly", () => {
     const message: IMessage = ChatMessages[1];
 
-    const { getByText } = render(<Message message={message} />);
+    const { getByText } = render(<Message message={message}/>);
 
     expect(getByText(message.text)).toBeInTheDocument();
   });

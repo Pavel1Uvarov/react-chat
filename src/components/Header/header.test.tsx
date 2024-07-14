@@ -1,6 +1,5 @@
 import { fireEvent, render } from "@testing-library/react";
 import Header from "@/components/Header/Header";
-// import useLogout from "@/hooks/useLogout.hook.ts";
 
 const mockedMutate = jest.fn();
 
@@ -14,7 +13,7 @@ jest.mock("@/hooks/useLogout.hook.ts", () => ({
 
 describe("Header component", () => {
   it("renders correctly", () => {
-    const { getByText, getByAltText } = render(<Header />);
+    const { getByText, getByAltText } = render(<Header/>);
 
     const logo = getByAltText("Logo");
     expect(logo).toHaveAttribute("src", "logo.svg");
@@ -24,7 +23,7 @@ describe("Header component", () => {
   });
 
   it("calls handleLogout when Log Out button is clicked", async () => {
-    const { getByText } = render(<Header />);
+    const { getByText } = render(<Header/>);
 
     const logoutButton = getByText("Log Out");
 

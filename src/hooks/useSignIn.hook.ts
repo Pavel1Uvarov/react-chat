@@ -7,9 +7,7 @@ const useSignInHook = () => {
   const setToken = useBoundStore(selectSetToken);
 
   return useMutation({
-    mutationFn: async ({ email, password }: IAuthFormInterface) => {
-      return await signInUser({ email, password });
-    },
+    mutationFn: async ({ email, password }: IAuthFormInterface) => await signInUser({ email, password }),
     onSuccess: (data) => {
       if (data?.session?.access_token) setToken(data?.session?.access_token);
     },

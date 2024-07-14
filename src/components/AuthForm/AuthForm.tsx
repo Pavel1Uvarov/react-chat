@@ -1,10 +1,11 @@
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { IAuthFormProps, useAuthForm } from "./_authForm.hook";
+import { ROUTES } from "@/constants/routes.ts";
+import { Label } from "@radix-ui/react-label";
+import { Input } from "@/components/ui/input.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import { IAuthFormProps, useAuthForm } from "@/components/AuthForm/_authForm.hook.ts";
 
 const AuthForm = ({ type, onSubmit, isLoading, error }: IAuthFormProps) => {
   const { email, password, handleSubmit, setEmail, setPassword, isTypeSignIn } =
@@ -40,15 +41,6 @@ const AuthForm = ({ type, onSubmit, isLoading, error }: IAuthFormProps) => {
           <div>
             <div className="flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
-
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot password?
-                </a>
-              </div>
             </div>
             <div className="mt-2">
               <Input
@@ -66,29 +58,15 @@ const AuthForm = ({ type, onSubmit, isLoading, error }: IAuthFormProps) => {
             {isLoading && <Loader2 data-testid="loading" className="mr-2 h-4 w-4 animate-spin"/>}
             {isTypeSignIn ? "Sign in" : "Sign up"}
           </Button>
-          <p className="text-center">
-            {isTypeSignIn ? (
-              <>
-                Haven't account?
-                <Link
-                  to="/auth/sign-up"
-                  className="text-blue-500 hover:text-blue-600 ml-1"
-                >
-                  Sign up
-                </Link>
-              </>
-            ) : (
-              <>
-                Already have account?
-                <Link
-                  to="/auth/sign-in"
-                  className="text-blue-500 hover:text-blue-600 ml-1"
-                >
-                  Sign in
-                </Link>
-              </>
-            )}
-          </p>
+          <div className="text-center">
+            {isTypeSignIn ? "Don't have an account?" : "Already have an account?"}
+            <Link
+              to={isTypeSignIn ? ROUTES.SIGN_UP : ROUTES.SIGN_IN}
+              className="text-blue-500 hover:text-blue-600 ml-1"
+            >
+              {isTypeSignIn ? 'Sign up' : 'Sign in'}
+            </Link>
+          </div>
 
           <p className={cn("text-red-500 text-center", error ? "" : "hidden")}>
             {error instanceof Error ? error.message : "An error occurred"}

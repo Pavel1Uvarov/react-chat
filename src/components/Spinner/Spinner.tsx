@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import { FC } from "react";
+import { SVGAttributes } from "react";
 
-interface ISpinnerProps extends React.SVGAttributes<SVGSVGElement> {
+interface ISpinnerProps extends SVGAttributes<SVGSVGElement> {
   className?: string;
 }
 
-const Spinner: FC<ISpinnerProps> = ({ className, ...props }) => {
+const Spinner = ({ className, ...props }: ISpinnerProps) => {
   return <Loader2 data-testid="spinner" className={cn(className, "animate-spin")} {...props} />;
 };
 

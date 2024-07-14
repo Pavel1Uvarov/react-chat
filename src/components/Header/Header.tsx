@@ -1,6 +1,6 @@
-import { Button } from "../ui/button";
 import Logo from "@/assets/logo.svg";
 import useLogout from "@/hooks/useLogout.hook.ts";
+import { Button } from "@/components/ui/button.tsx";
 
 const Header = () => {
   const { mutate } = useLogout()
