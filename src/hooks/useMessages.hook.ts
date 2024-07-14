@@ -3,16 +3,21 @@ import { fetchMessages } from "@/api/chatApi.ts";
 import { useBoundStore } from "@/stores/useBoundStore.ts";
 import { useShallow } from "zustand/react/shallow";
 import { selectSetMessages } from "@/stores/slices/chat.store.ts";
+import { QUERY_KEYS } from "@/constants/api.ts";
+import { sortMessages } from "@/services/messageService.ts";
 
 const useMessagesHook = () => {
   const setMessages = useBoundStore(useShallow(selectSetMessages))
 
   return useQuery({
-    queryKey: ["messages"],
+    queryKey: [QUERY_KEYS.MESSAGES],
     queryFn: async () => {
       const messages = await fetchMessages()
-      setMessages(messages);
-      return messages;
+      const sortedMessages = sortMessages(messages);
+
+      setMessages(sortedMessages);
+
+      return sortedMessages;
     },
   });
 };

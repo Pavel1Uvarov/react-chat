@@ -12,16 +12,14 @@ export const useAuthForm = ({ type, onSubmit }: IAuthFormProps) => {
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = useCallback(
-    (e: FormEvent) => {
+    (e: FormEvent): void => {
       e.preventDefault();
       onSubmit({ email, password });
     },
     [email, onSubmit, password]
   );
 
-  const isTypeSignIn = useMemo(() => {
-    return type === "SignIn";
-  }, [type]);
+  const isTypeSignIn = useMemo(() => type === "SignIn", [type]);
 
   return {
     email,

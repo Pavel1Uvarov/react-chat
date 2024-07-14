@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { TCMutators, TMutators } from "../useBoundStore";
+import { TCMutators, TMutators } from "@/stores/useBoundStore";
 
 export interface INotificationsSlice {
   playSoundNotification: boolean;

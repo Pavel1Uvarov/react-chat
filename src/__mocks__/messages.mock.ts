@@ -3,7 +3,6 @@ import { IMessage } from "@/types/message.interface";
 const ChatMessages: IMessage[] = [
   {
     id: "111",
-    username: "Anonymous",
     text: "Text Test",
     user_id: "1",
     timestamp: "2024-06-26T18:51:08.251717+00:00",
@@ -11,7 +10,6 @@ const ChatMessages: IMessage[] = [
   },
   {
     id: "122",
-    username: "Anonymous",
     text: "Text Test 2",
     user_id: "2",
     timestamp: "2024-06-26T18:51:19.019747+00:00",
@@ -19,7 +17,6 @@ const ChatMessages: IMessage[] = [
   },
   {
     id: "133",
-    username: "Anonymous",
     text: "Text Test 3",
     user_id: "1",
     timestamp: "2024-06-26T18:51:23.797842+00:00",
@@ -27,7 +24,6 @@ const ChatMessages: IMessage[] = [
   },
   {
     id: "222",
-    username: "Anonymous",
     text: "Text Test 3",
     user_id: "1",
     timestamp: "2024-06-26T18:51:23.797842+00:00",
@@ -35,7 +31,6 @@ const ChatMessages: IMessage[] = [
   },
   {
     id: "12333",
-    username: "Anonymous",
     text: "Text Test 3",
     user_id: "1",
     timestamp: "2024-06-26T18:51:23.797842+00:00",
@@ -43,7 +38,6 @@ const ChatMessages: IMessage[] = [
   },
   {
     id: "123123",
-    username: "Anonymous",
     text: "Text Test 3",
     user_id: "1",
     timestamp: "2024-06-26T18:51:23.797842+00:00",
@@ -51,7 +45,6 @@ const ChatMessages: IMessage[] = [
   },
   {
     id: "111122",
-    username: "Anonymous",
     text: "Text Test 3",
     user_id: "1",
     timestamp: "2024-06-26T18:51:23.797842+00:00",
@@ -59,7 +52,6 @@ const ChatMessages: IMessage[] = [
   },
   {
     id: "22223",
-    username: "Anonymous",
     text: "Text Test 3",
     user_id: "1",
     timestamp: "2024-06-26T18:51:23.797842+00:00",
@@ -67,7 +59,6 @@ const ChatMessages: IMessage[] = [
   },
   {
     id: "099",
-    username: "Anonymous",
     text: "Text Test 3",
     user_id: "1",
     timestamp: "2024-06-26T18:51:23.797842+00:00",
@@ -75,7 +66,6 @@ const ChatMessages: IMessage[] = [
   },
   {
     id: "875743",
-    username: "Anonymous",
     text: "Text Test 3",
     user_id: "1",
     timestamp: "2024-06-26T18:51:23.797842+00:00",

@@ -12,6 +12,7 @@ const Home = () => {
   const { user } = useStoresSelectors();
   const messages = useBoundStore(useShallow(selectMessages));
   const { isLoading } = useMessagesHook()
+
   useSubscribeToMessages(user);
 
   return (

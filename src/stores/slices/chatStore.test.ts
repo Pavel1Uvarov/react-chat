@@ -6,7 +6,6 @@ describe('chatSlice tests', () => {
   it('should set messages and clear messages', () => {
     const messages: IMessage[] = [{
       id: '1',
-      username: 'test',
       user_email: 'test@test.com',
       text: 'test text',
       user_id: '1',

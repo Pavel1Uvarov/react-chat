@@ -1,5 +1,5 @@
 import { act, renderHook } from "@testing-library/react";
-import { useBoundStore } from "@/stores/useBoundStore.ts"; // Путь к вашему файлу auth.store.ts
+import { useBoundStore } from "@/stores/useBoundStore.ts";
 
 describe('createAuthSlice', () => {
   it('should set and clear token correctly', () => {

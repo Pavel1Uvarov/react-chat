@@ -1,7 +1,7 @@
 import supabase from "@/services/supabaseClient.ts";
-import { AuthError } from "@supabase/supabase-js";
+import { AuthError, User } from "@supabase/supabase-js";
 
-export const fetchCurrentUser = async () => {
+export const fetchCurrentUser = async (): Promise<User | null> => {
   const {
     data: {
       user

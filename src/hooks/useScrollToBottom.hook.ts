@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const useScrollToBottom = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [showButton, setShowButton] = useState(false);
+  const [showButton, setShowButton] = useState<boolean>(false);
 
   useEffect(() => {
     const section = sectionRef.current;

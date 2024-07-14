@@ -1,8 +1,8 @@
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
-import { useChatForm } from "./_chatForm.hook";
-import Spinner from "../Spinner/Spinner";
+import { useChatForm } from "@/components/ChatForm/_chatForm.hook";
+import Spinner from "@/components/Spinner/Spinner";
+import { Button } from "@/components/ui/button.tsx";
+import { Input } from "@/components/ui/input.tsx";
 
 const ChatForm = () => {
   const { message, handleSubmit, setMessage, isPending } = useChatForm();

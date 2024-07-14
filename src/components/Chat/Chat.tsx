@@ -1,20 +1,20 @@
 import { IMessage } from "@/types/message.interface";
-import Message from "../Message/Message";
 import { useScrollToBottom } from "@/hooks/useScrollToBottom.hook.ts";
-import { Button } from "../ui/button";
 import { DoubleArrowDownIcon } from "@radix-ui/react-icons";
 import { useEffect } from "react";
-import Spinner from "../Spinner/Spinner";
+import Message from "@/components/Message/Message.tsx";
+import Spinner from "@/components/Spinner/Spinner.tsx";
+import { Button } from "@/components/ui/button.tsx";
 
-const Chat = ({ messages, isLoading }: {
+interface IChatProps {
   messages: IMessage[];
   isLoading: boolean;
-}) => {
+}
+
+const Chat = ({ messages, isLoading }: IChatProps) => {
   const { sectionRef, showButton, scrollToBottom } = useScrollToBottom();
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  useEffect(scrollToBottom, [messages]);
 
   return (
     <div

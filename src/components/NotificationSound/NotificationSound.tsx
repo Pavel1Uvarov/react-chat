@@ -1,5 +1,5 @@
 import notificationSound from "@/assets/notification/notificationSound.mp3";
-import { useSoundNotification } from "./_notificationSound.hook";
+import { useSoundNotification } from "@/components/NotificationSound/_notificationSound.hook";
 
 const NotificationSound = () => {
   const { audioRef } = useSoundNotification();

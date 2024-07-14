@@ -1,5 +1,5 @@
 import { IMessage } from "@/types/message.interface";
-import { TCMutators, TMutators } from "../useBoundStore";
+import { TCMutators, TMutators } from "@/stores/useBoundStore";
 import { StateCreator } from "zustand";
 
 export interface IChatSlice {
