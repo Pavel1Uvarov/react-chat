@@ -7,7 +7,7 @@ This is open-source react-chat project build with everything new in React.
 - **Library:** [React.js](https://react.dev/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
 - **UI Components:** [Shadcn](https://ui.shadcn.com/)
-- **User Management:** [Zustand](https://github.com/pmndrs/zustand)
+- **Store:** [Zustand](https://github.com/pmndrs/zustand)
 - **API Calls:** [Tanstack/React-query](https://tanstack.com/)
 - **Testing:** [Jest](https://jestjs.io/docs/getting-started)
   and [React-testing-library](https://testing-library.com/docs/react-testing-library/intro/)
