@@ -1,30 +1,42 @@
-# React + TypeScript + Vite
+# [React-Chat](https://pavel1uvarov-react-app.netlify.app)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is open-source react-chat project build with everything new in React.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Library:** [React.js](https://react.dev/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com)
+- **UI Components:** [Shadcn](https://ui.shadcn.com/)
+- **User Management:** [Zustand](https://github.com/pmndrs/zustand)
+- **API Calls:** [Tanstack/React-query](https://tanstack.com/)
+- **Testing:** [Jest](https://jestjs.io/docs/getting-started)
+  and [React-testing-library](https://testing-library.com/docs/react-testing-library/intro/)
+- **Backend:** [Supabase](https://supabase.com/)
 
-## Expanding the ESLint configuration
+## Features to be implemented
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [x] Authentication with **Supabase**
+- [x] Send message with **Supabase**
+- [x] Getting message in live with **Supabase**
+- [x] Store with **Zustand**
+- [x] Unit tests with **Jest** and **React Testing Library**
+- [x] Using TypeScript
 
-- Configure the top-level `parserOptions` property like this:
+## Running Locally
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Clone the repository
+    ```bash
+    git clone https://github.com/Pavel1Uvarov/react-chat.git
+     ```
+2. Install dependencies using pnpm
+     ```bash
+    npm install
+    ```
+3. Copy the `.env.example` to `.env` and update the variables.
+    ```bash
+    cp .env.example .env
+    ```
+4. Start the development server
+    ```bash
+   npm run dev
+   ```
