@@ -22,10 +22,17 @@ const Chat = ({ messages, isLoading }: IChatProps) => {
       data-testid="chat-section"
       ref={sectionRef}
     >
-      {isLoading && <Spinner data-testid="loading-spinner" className="w-10 h-10 mx-auto my-auto"/>}
-      {messages.map((message: IMessage) => (
-        <Message message={message} key={message.id}/>
-      ))}
+      {isLoading ? (
+        <Spinner
+          data-testid="loading-spinner"
+          className="w-10 h-10 mx-auto my-auto"
+        />
+      ) : (
+        messages.map((message: IMessage) => (
+          <Message message={message} key={message.id} />
+        ))
+      )}
+
       {showButton && (
         <Button
           variant="secondary"
@@ -34,7 +41,7 @@ const Chat = ({ messages, isLoading }: IChatProps) => {
           disabled={isLoading}
           onClick={scrollToBottom}
         >
-          <DoubleArrowDownIcon/>
+          <DoubleArrowDownIcon />
         </Button>
       )}
     </div>
