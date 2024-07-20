@@ -36,12 +36,11 @@ export const useSubscribeToMessages = (user: User | null) => {
   }, [handleNewMessage]);
 
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const subscription = subscribeToMessages();
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [subscribeToMessages, user]);
+  }, [subscribeToMessages]);
 };

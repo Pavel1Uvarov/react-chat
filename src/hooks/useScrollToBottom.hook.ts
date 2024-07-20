@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const useScrollToBottom = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -15,27 +15,22 @@ export const useScrollToBottom = () => {
       }
     };
 
-    if (section) {
-      sectionRef.current.scrollTo({
-        top: sectionRef.current.scrollHeight,
-      });
-      section.addEventListener("scroll", handleScroll);
-    }
+    if (section) section.addEventListener("scroll", handleScroll);
 
     return () => {
-      if (section) {
-        section.removeEventListener("scroll", handleScroll);
-      }
+      if (section) section.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback((smooth = false) => {
     if (sectionRef.current) {
+      setShowButton(false);
       sectionRef.current.scrollTo({
         top: sectionRef.current.scrollHeight,
+        behavior: smooth ? "smooth" : "auto",
       });
     }
-  };
+  }, []);
 
   return {
     sectionRef,

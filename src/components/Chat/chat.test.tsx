@@ -54,7 +54,7 @@ describe("Test Chat Component", () => {
     const btn = getByTestId("scroll-to-bottom-button");
     await user.click(btn);
 
-    expect(mockedScrollToBottom).toHaveBeenCalledTimes(2);
+    expect(mockedScrollToBottom).toHaveBeenCalledTimes(1);
   });
 
   afterEach(() => {

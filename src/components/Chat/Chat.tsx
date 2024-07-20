@@ -1,7 +1,7 @@
 import type { IMessage } from "@/types/message.interface";
 import { useScrollToBottom } from "@/hooks/useScrollToBottom.hook.ts";
 import { DoubleArrowDownIcon } from "@radix-ui/react-icons";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import Message from "@/components/Message/Message.tsx";
 import Spinner from "@/components/Spinner/Spinner.tsx";
 import { Button } from "@/components/ui/button.tsx";
@@ -14,8 +14,9 @@ interface IChatProps {
 const Chat = ({ messages, isLoading }: IChatProps) => {
   const { sectionRef, showButton, scrollToBottom } = useScrollToBottom();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(scrollToBottom, [sectionRef]);
+  useEffect(() => {
+    if (!isLoading && messages.length > 0) scrollToBottom(false);
+  }, [isLoading, messages, scrollToBottom]);
 
   return (
     <div
@@ -40,7 +41,7 @@ const Chat = ({ messages, isLoading }: IChatProps) => {
           className="sticky bottom-1 w-10 border border-gray-800 p-3 shadow-md ml-auto"
           data-testid="scroll-to-bottom-button"
           disabled={isLoading}
-          onClick={scrollToBottom}
+          onClick={() => scrollToBottom(true)}
         >
           <DoubleArrowDownIcon />
         </Button>
@@ -49,4 +50,4 @@ const Chat = ({ messages, isLoading }: IChatProps) => {
   );
 };
 
-export default Chat;
+export default memo(Chat);
