@@ -1,6 +1,6 @@
 import { render, renderHook } from "@testing-library/react";
 import ChatMessages from "@/__mocks__/messages.mock";
-import { IMessage } from "@/types/message.interface";
+import type { IMessage } from "@/types/message.interface";
 import { useStoresSelectors } from "@/hooks/useStoresSelectors.hook.ts";
 import user from "@/__mocks__/user.mock";
 import { useMessage } from "@/components/Message/_message.hook.ts";

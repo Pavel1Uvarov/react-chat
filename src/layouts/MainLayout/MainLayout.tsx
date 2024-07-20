@@ -6,7 +6,7 @@ const MainLayout = () => {
     <div className="h-screen flex flex-col">
       <Header />
       <div className="bg-slate-100 flex items-center justify-center py-10 flex-1">
-        <Outlet></Outlet>
+        <Outlet />
       </div>
     </div>
   );

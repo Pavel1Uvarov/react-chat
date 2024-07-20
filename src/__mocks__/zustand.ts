@@ -1,4 +1,4 @@
-import * as zustand from "zustand";
+import type * as zustand from "zustand";
 import { act } from "@testing-library/react";
 
 const { create: actualCreate, createStore: actualCreateStore } =
@@ -48,6 +48,7 @@ export const createStore = (<T>(stateCreator: zustand.StateCreator<T>) => {
 // reset all stores after each test run
 afterEach(() => {
   act(() => {
+    // biome-ignore lint/complexity/noForEach: <explanation>
     storeResetFns.forEach((resetFn) => {
       resetFn();
     });

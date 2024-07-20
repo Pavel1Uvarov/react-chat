@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-import { SVGAttributes } from "react";
+import type { SVGAttributes } from "react";
 
 interface ISpinnerProps extends SVGAttributes<SVGSVGElement> {
   className?: string;

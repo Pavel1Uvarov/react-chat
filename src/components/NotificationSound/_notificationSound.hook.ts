@@ -11,9 +11,7 @@ export const useSoundNotification = () => {
   }, [isPlaySound]);
 
   const playSound = () => {
-    if (audioRef && audioRef.current) {
-      audioRef.current.play();
-    }
+    if (audioRef?.current) audioRef.current.play();
   };
 
   return {

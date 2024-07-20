@@ -1,4 +1,4 @@
-import { IMessage } from "@/types/message.interface";
+import type { IMessage } from "@/types/message.interface";
 import { useScrollToBottom } from "@/hooks/useScrollToBottom.hook.ts";
 import { DoubleArrowDownIcon } from "@radix-ui/react-icons";
 import { useEffect } from "react";
@@ -14,7 +14,8 @@ interface IChatProps {
 const Chat = ({ messages, isLoading }: IChatProps) => {
   const { sectionRef, showButton, scrollToBottom } = useScrollToBottom();
 
-  useEffect(scrollToBottom, [messages]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(scrollToBottom, [sectionRef]);
 
   return (
     <div

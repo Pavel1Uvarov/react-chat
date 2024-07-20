@@ -11,50 +11,58 @@ jest.mock("@/hooks/useMessage.hook.ts", () => ({
   }),
 }));
 
-const mockedHandleSubmit = jest.fn()
+const mockedHandleSubmit = jest.fn();
+
+interface IUseChatResponse {
+  message: string;
+  handleSubmit: () => void;
+  setMessage: () => void;
+  isPending: boolean;
+}
 
 describe("Chat form component", () => {
   beforeEach(() => {
-    (useChatForm as jest.MockedFunction<any>).mockReturnValue({
-      message: 'Hello',
+    (
+      useChatForm as jest.MockedFunction<() => IUseChatResponse>
+    ).mockReturnValue({
+      message: "Hello",
       handleSubmit: mockedHandleSubmit,
       setMessage: jest.fn(),
       isPending: false,
-    })
-    ()
-  })
+    })();
+  });
 
   it("should render chat form", () => {
-    const { getByPlaceholderText, getByTestId } = render(<ChatForm/>)
+    const { getByPlaceholderText, getByTestId } = render(<ChatForm />);
 
-    const input = getByPlaceholderText('Enter a message')
-    const button = getByTestId('send-btn')
+    const input = getByPlaceholderText("Enter a message");
+    const button = getByTestId("send-btn");
 
-    expect(input).toBeInTheDocument()
-    expect(button).toBeInTheDocument()
-  })
+    expect(input).toBeInTheDocument();
+    expect(button).toBeInTheDocument();
+  });
 
   it("should handle input change", () => {
-    const { getByPlaceholderText } = render(<ChatForm/>)
+    const { getByPlaceholderText } = render(<ChatForm />);
 
-    const input = getByPlaceholderText('Enter a message')
+    const input = getByPlaceholderText("Enter a message");
 
-    fireEvent.change(input, { target: { value: 'Hello' } })
+    fireEvent.change(input, { target: { value: "Hello" } });
 
-    expect(input).toHaveDisplayValue('Hello')
-  })
+    expect(input).toHaveDisplayValue("Hello");
+  });
 
   it("should form submit", () => {
-    const { getByTestId } = render(<ChatForm/>)
+    const { getByTestId } = render(<ChatForm />);
 
-    const form = getByTestId('form')
+    const form = getByTestId("form");
 
-    fireEvent.submit(form)
+    fireEvent.submit(form);
 
-    expect(mockedHandleSubmit).toHaveBeenCalledTimes(1)
-  })
+    expect(mockedHandleSubmit).toHaveBeenCalledTimes(1);
+  });
 
   afterEach(() => {
-    jest.clearAllMocks()
-  })
-})
+    jest.clearAllMocks();
+  });
+});

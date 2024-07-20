@@ -1,7 +1,7 @@
-import { StateCreator } from "zustand";
-import { IUserSlice } from "@/stores/slices/user.store";
-import { IChatSlice } from "@/stores/slices/chat.store";
-import { TCMutators, TMutators } from "@/stores/useBoundStore.ts";
+import type { StateCreator } from "zustand";
+import type { IUserSlice } from "@/stores/slices/user.store";
+import type { IChatSlice } from "@/stores/slices/chat.store";
+import type { TCMutators, TMutators } from "@/stores/useBoundStore.ts";
 
 export interface IAuthSlice {
   token: string | null;

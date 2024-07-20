@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useMemo, useState } from "react";
+import { type FormEvent, useCallback, useMemo, useState } from "react";
 
 export interface IAuthFormProps {
   type: "SignIn" | "SignUp";

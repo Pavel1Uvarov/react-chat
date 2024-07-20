@@ -1,6 +1,6 @@
-import { StateCreator } from "zustand";
-import { User } from "@supabase/supabase-js";
-import { TCMutators, TMutators } from "@/stores/useBoundStore.ts";
+import type { StateCreator } from "zustand";
+import type { User } from "@supabase/supabase-js";
+import type { TCMutators, TMutators } from "@/stores/useBoundStore.ts";
 
 export interface IUserSlice {
   user: User | null;

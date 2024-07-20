@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { selectToken } from "@/stores/slices/auth.store";
 import { selectUser } from "@/stores/slices/user.store";
 import { Navigate } from "react-router-dom";

@@ -2,8 +2,8 @@ import { useCallback, useEffect } from "react";
 import supabase from "@/services/supabaseClient";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { selectTogglePlaySoundNotification } from "@/stores/slices/notifications.store";
-import { RealtimePostgresChangesPayload, User } from "@supabase/supabase-js";
-import { IMessage } from "@/types/message.interface";
+import type { RealtimePostgresChangesPayload, User } from "@supabase/supabase-js";
+import type { IMessage } from "@/types/message.interface";
 import { useQueryClient } from "@tanstack/react-query";
 import { useShallow } from "zustand/react/shallow";
 import { QUERY_KEYS } from "@/constants/api.ts";
@@ -22,7 +22,7 @@ export const useSubscribeToMessages = (user: User | null) => {
     await client.invalidateQueries({ queryKey: [QUERY_KEYS.MESSAGES] })
 
     if (newVal.user_id !== user?.id) playNotificationSound();
-  }, [client, playNotificationSound, user?.id]);
+  }, [client, playNotificationSound, user]);
 
   const subscribeToMessages = useCallback(() => {
     return supabase
@@ -36,6 +36,7 @@ export const useSubscribeToMessages = (user: User | null) => {
   }, [handleNewMessage]);
 
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const subscription = subscribeToMessages();
 

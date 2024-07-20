@@ -1,4 +1,4 @@
-import { IMessage } from "@/types/message.interface";
+import type { IMessage } from "@/types/message.interface";
 
 export const sortMessages = (messages: IMessage[]): IMessage[] =>
   messages.sort(

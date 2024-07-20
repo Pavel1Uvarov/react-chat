@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { createUserSlice, IUserSlice } from "@/stores/slices/user.store";
+import { createUserSlice, type IUserSlice } from "@/stores/slices/user.store";
 import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
-import { createChatStore, IChatSlice } from "@/stores/slices/chat.store";
-import { createAuthSlice, IAuthSlice } from "@/stores/slices/auth.store";
-import { createNotificationsSlice, INotificationsSlice } from "@/stores/slices/notifications.store.ts";
+import { createChatStore, type IChatSlice } from "@/stores/slices/chat.store";
+import { createAuthSlice, type IAuthSlice } from "@/stores/slices/auth.store";
+import { createNotificationsSlice, type INotificationsSlice } from "@/stores/slices/notifications.store.ts";
 
 export type TMutators = [["zustand/devtools", never], ["zustand/immer", never]];
 

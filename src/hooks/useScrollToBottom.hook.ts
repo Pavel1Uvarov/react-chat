@@ -9,7 +9,8 @@ export const useScrollToBottom = () => {
 
     const handleScroll = () => {
       if (section) {
-        const isNotAtBottom = section.scrollHeight - section.scrollTop - section.clientHeight > 50;
+        const isNotAtBottom =
+          section.scrollHeight - section.scrollTop - section.clientHeight > 50;
         setShowButton(isNotAtBottom);
       }
     };
@@ -18,15 +19,15 @@ export const useScrollToBottom = () => {
       sectionRef.current.scrollTo({
         top: sectionRef.current.scrollHeight,
       });
-      section.addEventListener('scroll', handleScroll);
+      section.addEventListener("scroll", handleScroll);
     }
 
     return () => {
       if (section) {
-        section.removeEventListener('scroll', handleScroll);
+        section.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [sectionRef]);
+  }, []);
 
   const scrollToBottom = () => {
     if (sectionRef.current) {

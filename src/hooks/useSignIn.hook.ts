@@ -1,4 +1,4 @@
-import { IAuthFormInterface, signInUser } from "@/api/authApi.ts";
+import { type IAuthFormInterface, signInUser } from "@/api/authApi.ts";
 import { selectSetToken } from "@/stores/slices/auth.store";
 import { useBoundStore } from "@/stores/useBoundStore";
 import { useMutation } from "@tanstack/react-query";

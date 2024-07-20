@@ -6,7 +6,7 @@ import AuthLayout from "@/layouts/AuthLayout/AuthLayout.tsx";
 import SignIn from "@/pages/Auth/SignIn/SignIn.tsx";
 import SignUp from "@/pages/Auth/SignUp/SignUp.tsx";
 import Home from "@/pages/Home/Home.tsx";
-import { RouteObject } from "react-router-dom";
+import type { RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [
   {

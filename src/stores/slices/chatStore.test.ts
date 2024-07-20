@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { useBoundStore } from "@/stores/useBoundStore.ts";
-import { IMessage } from "@/types/message.interface.ts";
+import type { IMessage } from "@/types/message.interface.ts";
 
 describe('chatSlice tests', () => {
   it('should set messages and clear messages', () => {

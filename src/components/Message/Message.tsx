@@ -1,5 +1,5 @@
 import { cn, formatDate } from "@/lib/utils";
-import { IMessage } from "@/types/message.interface";
+import type { IMessage } from "@/types/message.interface";
 import { useMessage } from "@/components/Message/_message.hook";
 
 export interface IMessageProps {

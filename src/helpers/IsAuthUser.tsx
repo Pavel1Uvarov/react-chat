@@ -1,6 +1,6 @@
 import { selectToken } from "@/stores/slices/auth.store";
 import { useBoundStore } from "@/stores/useBoundStore";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
 

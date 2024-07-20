@@ -5,7 +5,7 @@ import { ROUTES } from "@/constants/routes.ts";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import { IAuthFormProps, useAuthForm } from "@/components/AuthForm/_authForm.hook.ts";
+import { type IAuthFormProps, useAuthForm } from "@/components/AuthForm/_authForm.hook.ts";
 
 const AuthForm = ({ type, onSubmit, isLoading, error }: IAuthFormProps) => {
   const { email, password, handleSubmit, setEmail, setPassword, isTypeSignIn } =
